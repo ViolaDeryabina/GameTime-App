@@ -15,6 +15,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.gametime_app.data.Screens
+import com.example.gametime_app.presentation.screens.CreateAccount
+import com.example.gametime_app.presentation.screens.Login
 import com.example.gametime_app.presentation.screens.Onboard
 import com.example.gametime_app.presentation.screens.SpalshScreen
 import com.example.gametime_app.presentation.ui.theme.GameTimeAppTheme
@@ -28,16 +30,28 @@ class MainActivity : ComponentActivity() {
             CustomTheme {
                 val navController = rememberNavController()
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    NavHost(navController = navController, startDestination = Screens.SpalshScreen.route) {
-                        composable(Screens.SpalshScreen.route) {
+                    NavHost(navController = navController, startDestination = Screens.SplashScreen.route) {
+                        composable(Screens.SplashScreen.route) {
                             SpalshScreen(
                                 modifier = Modifier.padding(innerPadding),navController
                             )
                         }
                         composable(Screens.Onboard.route) {
                             Onboard(
-                                modifier = Modifier.padding(innerPadding)
+                                modifier = Modifier.padding(innerPadding),navController
                             )
+                        }
+                        composable(Screens.CreateAccount.route) {
+                            CreateAccount(
+                                modifier = Modifier.padding(innerPadding),navController
+                            )
+
+                        }
+                        composable(Screens.Login.route) {
+                            Login(
+                                modifier = Modifier.padding(innerPadding),navController
+                            )
+
                         }
 
                     }

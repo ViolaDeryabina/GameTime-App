@@ -24,6 +24,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.gametime_app.data.Screens
 import com.example.gametime_uikit.ui.components.Helpers
 import com.example.gametime_uikit.ui.components.Pagination
 import com.example.gametime_uikit.ui.components.PrimaryButton
@@ -35,7 +37,7 @@ import kotlinx.coroutines.delay
 // Дата создания: 12.02.26
 
 @Composable
-fun Onboard(modifier: Modifier = Modifier) {
+fun Onboard(modifier: Modifier = Modifier, navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -79,7 +81,7 @@ fun Onboard(modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.weight(1f))
             if (pagerState.currentPage == 2) {
                 PrimaryButton(
-                    onClick = {},
+                    onClick = {navController.navigate(Screens.CreateAccount.route)},
                     text = "Let’s Combat!",
                     modifier = Modifier
                         .width(224.dp)
@@ -87,7 +89,7 @@ fun Onboard(modifier: Modifier = Modifier) {
                 )
                 Helpers.SpacerHeight(38)
             } else {
-                TextButton(onClick = {}) {
+                TextButton(onClick = {navController.navigate(Screens.CreateAccount.route)}) {
                     Text(
                         text = "Skip",
                         style = CustomTheme.typography.CaptionSemibold14,
