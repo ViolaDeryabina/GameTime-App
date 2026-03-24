@@ -1,4 +1,4 @@
-package com.example.gametime_app
+package com.example.gametime_app.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,37 +11,22 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.gametime_app.ui.theme.GameTimeAppTheme
+import com.example.gametime_app.presentation.screens.Onboard
+import com.example.gametime_app.presentation.ui.theme.GameTimeAppTheme
+import com.example.gametime_uikit.ui.theme.CustomTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            GameTimeAppTheme {
+            CustomTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                    Onboard(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    GameTimeAppTheme {
-        Greeting("Android")
     }
 }
