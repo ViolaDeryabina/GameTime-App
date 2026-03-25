@@ -46,7 +46,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.gametime_app.R
-import com.example.gametime_app.data.Screens
+import com.example.gametime_app.presentation.navigation.Screens
 import com.example.gametime_uikit.ui.components.Back
 import com.example.gametime_uikit.ui.components.CustomCard
 import com.example.gametime_uikit.ui.components.Helpers

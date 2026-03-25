@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.gametime_app.R
-import com.example.gametime_app.data.Screens
+import com.example.gametime_app.presentation.navigation.Onboard
 import com.example.gametime_uikit.ui.components.Helpers
 import com.example.gametime_uikit.ui.theme.CustomTheme
 import kotlinx.coroutines.delay
@@ -37,7 +37,7 @@ import kotlinx.coroutines.delay
 fun SpalshScreen(modifier: Modifier = Modifier, navController: NavController) {
     LaunchedEffect(Unit){
         delay(1000)
-        navController.navigate(Screens.Onboard.route)
+        navController.navigate(route = Onboard)
     }
 
     Box(

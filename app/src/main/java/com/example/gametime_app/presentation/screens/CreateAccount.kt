@@ -43,7 +43,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.gametime_app.R
-import com.example.gametime_app.data.Screens
+import com.example.gametime_app.presentation.navigation.Screens
 import com.example.gametime_uikit.ui.components.Helpers
 import com.example.gametime_uikit.ui.components.Input
 import com.example.gametime_uikit.ui.components.PrimaryButton

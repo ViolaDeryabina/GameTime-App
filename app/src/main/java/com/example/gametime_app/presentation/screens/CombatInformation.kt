@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.gametime_app.R
-import com.example.gametime_app.data.Screens
+import com.example.gametime_app.presentation.navigation.Screens
 import com.example.gametime_uikit.ui.components.BottomSheet
 import com.example.gametime_uikit.ui.components.CustomCheckBox
 import com.example.gametime_uikit.ui.components.Helpers

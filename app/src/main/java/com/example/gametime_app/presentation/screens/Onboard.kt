@@ -25,7 +25,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.gametime_app.data.Screens
+import com.example.gametime_app.presentation.navigation.CreateAccount
+import com.example.gametime_app.presentation.navigation.Onboard
+import com.example.gametime_app.presentation.navigation.Screens
 import com.example.gametime_uikit.ui.components.Helpers
 import com.example.gametime_uikit.ui.components.Pagination
 import com.example.gametime_uikit.ui.components.PrimaryButton
@@ -81,7 +83,7 @@ fun Onboard(modifier: Modifier = Modifier, navController: NavController) {
             Spacer(modifier = Modifier.weight(1f))
             if (pagerState.currentPage == 2) {
                 PrimaryButton(
-                    onClick = {navController.navigate(Screens.CreateAccount.route)},
+                    onClick = {navController.navigate(route = CreateAccount)},
                     text = "Let’s Combat!",
                     modifier = Modifier
                         .width(224.dp)
@@ -89,7 +91,7 @@ fun Onboard(modifier: Modifier = Modifier, navController: NavController) {
                 )
                 Helpers.SpacerHeight(38)
             } else {
-                TextButton(onClick = {navController.navigate(Screens.CreateAccount.route)}) {
+                TextButton(onClick = {navController.navigate(route = CreateAccount)}) {
                     Text(
                         text = "Skip",
                         style = CustomTheme.typography.CaptionSemibold14,

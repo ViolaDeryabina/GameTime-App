@@ -14,7 +14,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.gametime_app.data.Screens
+import com.example.gametime_app.presentation.navigation.CreateAccount
+import com.example.gametime_app.presentation.navigation.Onboard
+import com.example.gametime_app.presentation.navigation.Screens
+import com.example.gametime_app.presentation.navigation.SplashScreen
 import com.example.gametime_app.presentation.screens.CombatInformation
 import com.example.gametime_app.presentation.screens.CreateAccount
 import com.example.gametime_app.presentation.screens.DiscoverCombats
@@ -37,23 +40,22 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     NavHost(
                         navController = navController,
-                        startDestination = Screens.CombatInformation.route
+                        startDestination = SplashScreen
                     ) {
-                        composable(Screens.SplashScreen.route) {
+                        composable<SplashScreen> {
                             SpalshScreen(
                                 modifier = Modifier.padding(innerPadding), navController
                             )
                         }
-                        composable(Screens.Onboard.route) {
+                        composable<Onboard> {
                             Onboard(
                                 modifier = Modifier.padding(innerPadding), navController
                             )
                         }
-                        composable(Screens.CreateAccount.route) {
+                        composable<CreateAccount> {
                             CreateAccount(
                                 modifier = Modifier.padding(innerPadding), navController
                             )
-
                         }
                         composable(Screens.Login.route) {
                             Login(
