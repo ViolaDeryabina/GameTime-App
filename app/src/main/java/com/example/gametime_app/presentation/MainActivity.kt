@@ -15,9 +15,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.gametime_app.data.Screens
+import com.example.gametime_app.presentation.screens.CombatInformation
 import com.example.gametime_app.presentation.screens.CreateAccount
+import com.example.gametime_app.presentation.screens.DiscoverCombats
+import com.example.gametime_app.presentation.screens.LandingScreen
 import com.example.gametime_app.presentation.screens.Login
 import com.example.gametime_app.presentation.screens.Onboard
+import com.example.gametime_app.presentation.screens.PlayerInformation
+import com.example.gametime_app.presentation.screens.ScheduleGame
 import com.example.gametime_app.presentation.screens.SpalshScreen
 import com.example.gametime_app.presentation.ui.theme.GameTimeAppTheme
 import com.example.gametime_uikit.ui.theme.CustomTheme
@@ -25,37 +30,61 @@ import com.example.gametime_uikit.ui.theme.CustomTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        //enableEdgeToEdge()
         setContent {
             CustomTheme {
                 val navController = rememberNavController()
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    NavHost(navController = navController, startDestination = Screens.SplashScreen.route) {
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screens.CombatInformation.route
+                    ) {
                         composable(Screens.SplashScreen.route) {
                             SpalshScreen(
-                                modifier = Modifier.padding(innerPadding),navController
+                                modifier = Modifier.padding(innerPadding), navController
                             )
                         }
                         composable(Screens.Onboard.route) {
                             Onboard(
-                                modifier = Modifier.padding(innerPadding),navController
+                                modifier = Modifier.padding(innerPadding), navController
                             )
                         }
                         composable(Screens.CreateAccount.route) {
                             CreateAccount(
-                                modifier = Modifier.padding(innerPadding),navController
+                                modifier = Modifier.padding(innerPadding), navController
                             )
 
                         }
                         composable(Screens.Login.route) {
                             Login(
-                                modifier = Modifier.padding(innerPadding),navController
+                                modifier = Modifier.padding(innerPadding), navController
                             )
 
                         }
+                        composable(Screens.LandingScreen.route) {
+                            LandingScreen(navController = navController)
 
+                        }
+                        composable(Screens.ScheduleGame.route) {
+                            ScheduleGame(
+                                modifier = Modifier.padding(innerPadding), navController
+                            )
+                        }//DiscoverCombats
+                        composable(Screens.DiscoverCombats.route) {
+                            DiscoverCombats()
+
+                        }//CombatInformation
+                        composable(Screens.CombatInformation.route) {
+                            CombatInformation(
+                                modifier = Modifier.padding(innerPadding),navController
+                            )
+                        }//PlayerInformation
+                        composable(Screens.PlayerInformation.route) {
+                            PlayerInformation(
+                                modifier = Modifier.padding(innerPadding), navController
+                            )
+                        }
                     }
-
                 }
             }
         }

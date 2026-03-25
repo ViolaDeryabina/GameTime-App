@@ -147,7 +147,7 @@ fun Login(modifier: Modifier = Modifier, navController: NavController) {
 
 
             Helpers.SpacerHeight(27)
-            PrimaryButton(onClick = {}, text = "Let’s Combat!", modifier = Modifier.width(210.dp))
+            PrimaryButton(onClick = {navController.navigate(Screens.LandingScreen.route)}, text = "Let’s Combat!", modifier = Modifier.width(210.dp))
             Helpers.SpacerHeight(23)
             Text(
                 text = "Connect With:",
