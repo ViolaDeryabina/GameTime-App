@@ -24,11 +24,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.example.gametime_app.presentation.navigation.CreateAccount
-import com.example.gametime_uikit.ui.components.Helpers
 import com.example.gametime_uikit.ui.components.Pagination
 import com.example.gametime_uikit.ui.components.PrimaryButton
+import com.example.gametime_uikit.ui.components.SpacerHeight
 import com.example.gametime_uikit.ui.theme.CustomTheme
 import kotlinx.coroutines.delay
 
@@ -39,7 +37,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun Onboard(
     modifier: Modifier = Modifier,
-    onClickRegister:()->Unit,
+    onClickRegister: () -> Unit,
 ) {
     Box(
         modifier = Modifier
@@ -70,7 +68,7 @@ fun Onboard(
                 }
             }
 
-            Helpers.SpacerHeight(120)
+            SpacerHeight(120)
             HorizontalPager(
                 state = pagerState,
                 modifier = Modifier
@@ -84,15 +82,15 @@ fun Onboard(
             Spacer(modifier = Modifier.weight(1f))
             if (pagerState.currentPage == 2) {
                 PrimaryButton(
-                    onClick = {onClickRegister()},
+                    onClick = { onClickRegister() },
                     text = "Let’s Combat!",
                     modifier = Modifier
                         .width(224.dp)
                         .height(58.dp)
                 )
-                Helpers.SpacerHeight(38)
+                SpacerHeight(38)
             } else {
-                TextButton(onClick = {onClickRegister()}) {
+                TextButton(onClick = { onClickRegister() }) {
                     Text(
                         text = "Skip",
                         style = CustomTheme.typography.CaptionSemibold14,
@@ -101,11 +99,11 @@ fun Onboard(
                         textDecoration = TextDecoration.Underline
                     )
                 }
-                Helpers.SpacerHeight(71)
+                SpacerHeight(71)
             }
 
             Pagination(3, pagerState.currentPage)
-            Helpers.SpacerHeight(45)
+            SpacerHeight(45)
         }
     }
 }

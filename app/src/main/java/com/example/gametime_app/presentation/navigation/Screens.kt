@@ -22,3 +22,5 @@ object PlayerInformation
 object CombatInformation
 @Serializable
 object LandingScreen
+@Serializable
+object Statistics

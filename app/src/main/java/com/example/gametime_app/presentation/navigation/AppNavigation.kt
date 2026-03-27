@@ -21,6 +21,7 @@ import com.example.gametime_app.presentation.screens.DiscoverCombats
 import com.example.gametime_app.presentation.screens.LandingScreen
 import com.example.gametime_app.presentation.screens.PlayerInformation
 import com.example.gametime_app.presentation.screens.ScheduleGame
+import com.example.gametime_app.presentation.screens.Statistics
 import com.example.gametime_app.presentation.viewModel.AuthViewModel
 import com.example.gametime_app.presentation.viewModel.CreateGameViewModel
 import com.example.gametime_app.presentation.viewModel.GetCategoryViewModel
@@ -79,6 +80,7 @@ fun AppNavigation() {
                     LandingScreen(
                         onClickScheduleGame = { navController.navigate(route = ScheduleGame) },
                         onClickDiscoverCombats = { navController.navigate(route = DiscoverCombats) },
+                        onStatisticsClick = { navController.navigate(route = Statistics)}
                     )
 
                 }
@@ -109,6 +111,11 @@ fun AppNavigation() {
                 composable<PlayerInformation> {
                     PlayerInformation(
                         modifier = Modifier.padding(innerPadding),
+                        onClickBack = { navController.popBackStack() }
+                    )
+                }
+                composable<Statistics> {
+                    Statistics(
                         onClickBack = { navController.popBackStack() }
                     )
                 }

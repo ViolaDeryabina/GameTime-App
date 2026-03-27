@@ -41,11 +41,11 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.example.gametime_app.R
 import com.example.gametime_uikit.ui.components.Back
 import com.example.gametime_uikit.ui.components.CustomCard
-import com.example.gametime_uikit.ui.components.Helpers
+import com.example.gametime_uikit.ui.components.SpacerHeight
+import com.example.gametime_uikit.ui.components.SpacerWidth
 import com.example.gametime_uikit.ui.components.TapBar
 import com.example.gametime_uikit.ui.theme.CustomTheme
 import kotlinx.coroutines.launch
@@ -60,8 +60,8 @@ fun LandingScreen(
     modifier: Modifier = Modifier,
     onClickScheduleGame: () -> Unit,
     onClickDiscoverCombats: () -> Unit,
-
-) {
+    onStatisticsClick: () -> Unit
+    ) {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
@@ -79,7 +79,7 @@ fun LandingScreen(
                     ) {
 
                         Column() {
-                            Helpers.SpacerHeight(24)
+                            SpacerHeight(24)
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -102,7 +102,7 @@ fun LandingScreen(
                                     )
                                 }
                             }
-                            Helpers.SpacerHeight(21)
+                            SpacerHeight(21)
 
                             Row(
                                 modifier = Modifier
@@ -124,7 +124,7 @@ fun LandingScreen(
                                             )
                                     )
                                 }
-                                Helpers.SpacerWidth(13)
+                                SpacerWidth(13)
 
                                 Column() {
                                     Text(
@@ -133,7 +133,7 @@ fun LandingScreen(
                                         fontSize = 16.sp,
                                         color = CustomTheme.colors.accent
                                     )
-                                    Helpers.SpacerHeight(4)
+                                    SpacerHeight(4)
                                     Row(verticalAlignment = Alignment.CenterVertically) {
 
                                         Icon(
@@ -142,7 +142,7 @@ fun LandingScreen(
                                             modifier = Modifier.size(10.dp),
                                             tint = Color(0xFFF4C73E)
                                         )
-                                        Helpers.SpacerWidth(3)
+                                        SpacerWidth(3)
                                         Text(
                                             "Gold Player",
                                             style = CustomTheme.typography.HeadlineRegular16,
@@ -154,7 +154,7 @@ fun LandingScreen(
 
                                 }
                             }
-                            Helpers.SpacerHeight(55)
+                            SpacerHeight(55)
 //
                             Column(
                                 modifier = Modifier
@@ -166,13 +166,13 @@ fun LandingScreen(
                                         contentDescription = "",
                                         tint = CustomTheme.colors.accent
                                     )
-                                    Helpers.SpacerWidth(24)
+                                    SpacerWidth(24)
                                     Text(
                                         text = "My Profile",
                                         style = CustomTheme.typography.HeadlineRegular16
                                     )
                                 }
-                                Helpers.SpacerHeight(40)
+                                SpacerHeight(40)
                                 Row(
                                     verticalAlignment = Alignment.CenterVertically,
                                     modifier = Modifier.clickable(onClick = {
@@ -184,72 +184,75 @@ fun LandingScreen(
                                         contentDescription = "",
                                         tint = CustomTheme.colors.accent
                                     )
-                                    Helpers.SpacerWidth(24)
+                                    SpacerWidth(24)
                                     Text(
                                         text = "Schedule",
                                         style = CustomTheme.typography.HeadlineRegular16
                                     )
                                 }
-                                Helpers.SpacerHeight(40)
-                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                SpacerHeight(40)
+                                Row(verticalAlignment = Alignment.CenterVertically,
+                                    modifier = Modifier.clickable(onClick = {
+                                        onStatisticsClick()
+                                    })) {
                                     Icon(
                                         imageVector = ImageVector.vectorResource(R.drawable.statistics_icon),
                                         contentDescription = "",
                                         tint = CustomTheme.colors.accent
                                     )
-                                    Helpers.SpacerWidth(24)
+                                    SpacerWidth(24)
                                     Text(
                                         text = "Statistics",
                                         style = CustomTheme.typography.HeadlineRegular16
                                     )
                                 }
-                                Helpers.SpacerHeight(40)
+                                SpacerHeight(40)
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Icon(
                                         imageVector = ImageVector.vectorResource(R.drawable.location_pin),
                                         contentDescription = "",
                                         tint = CustomTheme.colors.accent
                                     )
-                                    Helpers.SpacerWidth(24)
+                                    SpacerWidth(24)
                                     Text(
                                         text = "Discover Combat",
                                         style = CustomTheme.typography.HeadlineRegular16
                                     )
                                 }
-                                Helpers.SpacerHeight(40)
+                                SpacerHeight(40)
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Icon(
                                         imageVector = ImageVector.vectorResource(R.drawable.chat),
                                         contentDescription = "",
                                         tint = CustomTheme.colors.accent
                                     )
-                                    Helpers.SpacerWidth(24)
+                                    SpacerWidth(24)
                                     Text(
                                         text = "Chat",
                                         style = CustomTheme.typography.HeadlineRegular16
                                     )
                                 }
-                                Helpers.SpacerHeight(40)
+                                SpacerHeight(40)
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Icon(
                                         imageVector = ImageVector.vectorResource(R.drawable.change_language_icon),
                                         contentDescription = "",
                                         tint = CustomTheme.colors.accent
                                     )
-                                    Helpers.SpacerWidth(24)
+                                    SpacerWidth(24)
                                     Text(
                                         text = "Change Language",
                                         style = CustomTheme.typography.HeadlineRegular16
                                     )
                                 }
-                                Helpers.SpacerHeight(40)
+                                SpacerHeight(40)
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Icon(
                                         imageVector = ImageVector.vectorResource(R.drawable.change_skin),
                                         contentDescription = "",
                                         tint = CustomTheme.colors.accent
                                     )
-                                    Helpers.SpacerWidth(24)
+                                    SpacerWidth(24)
                                     Text(
                                         text = "Change App Skin",
                                         style = CustomTheme.typography.HeadlineRegular16
@@ -264,7 +267,7 @@ fun LandingScreen(
                             ) {
                                 Back(onClick = {})
                             }
-                            Helpers.SpacerHeight(46)
+                            SpacerHeight(46)
 
 
                         }
@@ -307,7 +310,7 @@ fun LandingScreen(
                                     modifier = Modifier.size(24.dp)
                                 )
                             }
-                            Helpers.SpacerWidth(4)
+                            SpacerWidth(4)
                             Text("Stone Stellar", style = CustomTheme.typography.HeadlineRegular16)
                         }
                     },
@@ -336,31 +339,31 @@ fun LandingScreen(
                         .verticalScroll(scroll),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Helpers.SpacerHeight(25)
+                    SpacerHeight(25)
                     CustomCard(
                         title = "Schedule",
                         description = "Easily schedule event/games\n" +
                                 "then find like minded players for battle. You up for it?",
-                        onClick = { onClickScheduleGame },
+                        onClick = { onClickScheduleGame() },
                         image = R.drawable.custom_card1
                     )
-                    Helpers.SpacerHeight(10)
+                    SpacerHeight(10)
 
                     CustomCard(
                         title = "Statistics",
                         description = "All data from previous and \n" +
                                 "upcoming games can be found here ",
-                        onClick = {},
+                        onClick = {onStatisticsClick()},
                         image = R.drawable.custom_card2
                     )
-                    Helpers.SpacerHeight(10)
+                    SpacerHeight(10)
                     CustomCard(
                         title = "Discover  Combats",
                         description = "Find out what’s new and compete among players with new challenges and earn cash with game points ",
                         onClick = {},
                         image = R.drawable.custom_card3
                     )
-                    Helpers.SpacerHeight(10)
+                    SpacerHeight(10)
                     CustomCard(
                         title = "Message Players",
                         description = "Found the profile of a player\n" +
@@ -369,7 +372,7 @@ fun LandingScreen(
                         onClick = {},
                         image = R.drawable.custom_card4
                     )
-                    Helpers.SpacerHeight(10)
+                    SpacerHeight(10)
                 }
             }
 

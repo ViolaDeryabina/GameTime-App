@@ -46,16 +46,15 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.gametime_app.R
-import com.example.gametime_app.presentation.navigation.CreateAccount
-import com.example.gametime_app.presentation.navigation.LandingScreen
 import com.example.gametime_app.presentation.viewModel.AuthViewModel
 import com.example.gametime_networklibrary.data.dataSources.NetworkResult
 import com.example.gametime_networklibrary.data.dataSources.Preferences
 import com.example.gametime_networklibrary.data.dto.user.auth.AuthRequest
 import com.example.gametime_networklibrary.data.repositoryImpl.AuthRepositoryImpl
-import com.example.gametime_uikit.ui.components.Helpers
 import com.example.gametime_uikit.ui.components.Input
 import com.example.gametime_uikit.ui.components.PrimaryButton
+import com.example.gametime_uikit.ui.components.SpacerHeight
+import com.example.gametime_uikit.ui.components.SpacerWidth
 import com.example.gametime_uikit.ui.theme.CustomTheme
 
 
@@ -95,7 +94,7 @@ fun Login(
                 .fillMaxSize()
                 .background(Color.White), horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Helpers.SpacerHeight(51)
+            SpacerHeight(51)
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -108,7 +107,7 @@ fun Login(
                     modifier = Modifier.fillMaxWidth()
                 )
             }
-            Helpers.SpacerHeight(41)
+            SpacerHeight(41)
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -120,14 +119,14 @@ fun Login(
                     style = CustomTheme.typography.Title1ExtraBold24,
                     color = CustomTheme.colors.accent
                 )
-                Helpers.SpacerHeight(12)
+                SpacerHeight(12)
                 Text(
                     text = "Hi, Kindly login to continue battle",
                     modifier = Modifier.width(224.dp),
                     style = CustomTheme.typography.Caption2Regular12,
                     color = CustomTheme.colors.black
                 )
-                Helpers.SpacerHeight(40)
+                SpacerHeight(40)
                 Input(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -136,7 +135,7 @@ fun Login(
                     onValueChange = { email = it },
                     placeholder = "Email"
                 )
-                Helpers.SpacerHeight(9)
+                SpacerHeight(9)
                 Input(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -169,20 +168,22 @@ fun Login(
 
             }
 
-            Helpers.SpacerHeight(27)
-            PrimaryButton(onClick = {
-                viewModel.authorization(AuthRequest(email, password))
-            }, text = "Let’s Combat!", modifier = Modifier
-                .width(210.dp)
-                .height(58.dp))
-            Helpers.SpacerHeight(23)
+            SpacerHeight(27)
+            PrimaryButton(
+                onClick = {
+                    viewModel.authorization(AuthRequest(email, password))
+                }, text = "Let’s Combat!", modifier = Modifier
+                    .width(210.dp)
+                    .height(58.dp)
+            )
+            SpacerHeight(23)
             Text(
                 text = "Connect With:",
                 style = CustomTheme.typography.Caption2Regular12,
                 textAlign = TextAlign.Center,
                 color = CustomTheme.colors.accent,
             )
-            Helpers.SpacerHeight(7)
+            SpacerHeight(7)
             Row() {
                 Box(
                     modifier = Modifier
@@ -199,7 +200,7 @@ fun Login(
 
                     )
                 }
-                Helpers.SpacerWidth(15)
+                SpacerWidth(15)
                 Box(
                     modifier = Modifier
                         .size(35.dp)
@@ -217,7 +218,7 @@ fun Login(
                 }
             }
 
-            Helpers.SpacerHeight(18)
+            SpacerHeight(18)
             TextButton(onClick = { onClickRegister() }) {
                 Text(
                     text = buildAnnotatedString {
@@ -241,7 +242,7 @@ fun Login(
                     textAlign = TextAlign.Center
                 )
             }
-            Helpers.SpacerHeight(43)
+            SpacerHeight(43)
 
         }
     }

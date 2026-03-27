@@ -29,13 +29,13 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.example.gametime_app.R
 import com.example.gametime_uikit.ui.components.BottomSheet
 import com.example.gametime_uikit.ui.components.CustomCheckBox
-import com.example.gametime_uikit.ui.components.Helpers
 import com.example.gametime_uikit.ui.components.PrimaryButton
 import com.example.gametime_uikit.ui.components.Select
+import com.example.gametime_uikit.ui.components.SpacerHeight
+import com.example.gametime_uikit.ui.components.gradient
 import com.example.gametime_uikit.ui.theme.CustomTheme
 
 //
@@ -45,9 +45,9 @@ import com.example.gametime_uikit.ui.theme.CustomTheme
 @Composable
 fun CombatInformation(
     modifier: Modifier = Modifier,
-    onClickPlayerInfo: ()->Unit,
-    onClickBack:()->Unit
-    ) {
+    onClickPlayerInfo: () -> Unit,
+    onClickBack: () -> Unit
+) {
     var showBottomSheet by remember { mutableStateOf(false) }
     var checked by remember { mutableStateOf(false) }
     val scroll = rememberScrollState()
@@ -63,7 +63,7 @@ fun CombatInformation(
                 .padding(horizontal = 30.dp)
                 .background(CustomTheme.colors.white)
         ) {
-            Helpers.SpacerHeight(14)
+            SpacerHeight(14)
             IconButton(onClick = { onClickBack() }) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.back_icon),
@@ -71,7 +71,7 @@ fun CombatInformation(
                     tint = CustomTheme.colors.accent
                 )
             }
-            Helpers.SpacerHeight(36)
+            SpacerHeight(36)
             Text(
                 "Combat Information",
                 style = CustomTheme.typography.Caption2Bold12,
@@ -84,21 +84,21 @@ fun CombatInformation(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(252.dp)
-                    .background(CustomTheme.colors.white, shape = Helpers.shape)
-                    .border(1.dp, CustomTheme.colors.accent, shape = Helpers.shape)
+                    .background(CustomTheme.colors.white, shape = CustomTheme.shapes.roundedCornerShape)
+                    .border(1.dp, CustomTheme.colors.accent, shape = CustomTheme.shapes.roundedCornerShape)
 
             ) {
 
             }
 
-            Helpers.SpacerHeight(27)
+            SpacerHeight(27)
             Text(
                 "DESCRIPTION",
                 style = CustomTheme.typography.Caption2Bold12,
                 fontSize = 6.sp,
                 color = CustomTheme.colors.accent
             )
-            Helpers.SpacerHeight(8)
+            SpacerHeight(8)
             Text(
                 "Hi players, here’s the jerk; I need 6  solid gamers to join me on this quest playing NFS(Rivals 2) you all will be rewarded according to the ya’ positions, hits and points. Ready for this challange? Let’s rock!!! ",
                 style = CustomTheme.typography.Caption2Regular12,
@@ -106,7 +106,7 @@ fun CombatInformation(
                 color = CustomTheme.colors.black
             )
 
-            Helpers.SpacerHeight(23)
+            SpacerHeight(23)
 
             Text(
                 "CATEGORY",
@@ -114,14 +114,14 @@ fun CombatInformation(
                 fontSize = 6.sp,
                 color = CustomTheme.colors.accent
             )
-            Helpers.SpacerHeight(8)
+            SpacerHeight(8)
             Text(
                 "Image",
                 style = CustomTheme.typography.Caption2Regular12,
                 fontSize = 10.sp,
                 color = CustomTheme.colors.black
             )
-            Helpers.SpacerHeight(23)
+            SpacerHeight(23)
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -134,7 +134,7 @@ fun CombatInformation(
                         fontSize = 6.sp,
                         color = CustomTheme.colors.accent
                     )
-                    Helpers.SpacerHeight(8)
+                    SpacerHeight(8)
                     Text(
                         "$2000",
                         style = CustomTheme.typography.Caption2Regular12,
@@ -149,7 +149,7 @@ fun CombatInformation(
                         fontSize = 6.sp,
                         color = CustomTheme.colors.accent
                     )
-                    Helpers.SpacerHeight(8)
+                    SpacerHeight(8)
 
                     Text(
                         "$1000",
@@ -165,7 +165,7 @@ fun CombatInformation(
                         fontSize = 6.sp,
                         color = CustomTheme.colors.accent
                     )
-                    Helpers.SpacerHeight(8)
+                    SpacerHeight(8)
 
                     Text(
                         "$500",
@@ -181,7 +181,7 @@ fun CombatInformation(
                         fontSize = 6.sp,
                         color = CustomTheme.colors.accent
                     )
-                    Helpers.SpacerHeight(8)
+                    SpacerHeight(8)
 
                     Text(
                         "$160",
@@ -193,13 +193,13 @@ fun CombatInformation(
             }
 
 
-            Helpers.SpacerHeight(47)
+            SpacerHeight(47)
 
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 30.dp)
-                    .background(brush = Helpers.gradientActive(), shape = Helpers.shape)
+                    .background(brush = gradient(), shape = CustomTheme.shapes.roundedCornerShape)
                     .padding(start = 20.dp, top = 17.dp)
             ) {
                 Column() {
@@ -232,7 +232,7 @@ fun CombatInformation(
                 }
             }
 
-            Helpers.SpacerHeight(57)
+            SpacerHeight(57)
             Text(
                 "REMINDERS",
                 style = CustomTheme.typography.Caption2Regular12,
@@ -254,7 +254,7 @@ fun CombatInformation(
                     )
                 }
             }
-            Helpers.SpacerHeight(45)
+            SpacerHeight(45)
             Spacer(modifier = Modifier.weight(1f))
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -268,7 +268,7 @@ fun CombatInformation(
                     text = "Join Combat!"
                 )
             }
-            Helpers.SpacerHeight(44)
+            SpacerHeight(44)
 
             if (showBottomSheet) {
                 BottomSheet(

@@ -47,9 +47,10 @@ import com.example.gametime_app.R
 import com.example.gametime_app.presentation.viewModel.RegistrationViewModel
 import com.example.gametime_networklibrary.data.dataSources.NetworkResult
 import com.example.gametime_networklibrary.data.dto.user.registration.RegistrationRequest
-import com.example.gametime_uikit.ui.components.Helpers
 import com.example.gametime_uikit.ui.components.Input
 import com.example.gametime_uikit.ui.components.PrimaryButton
+import com.example.gametime_uikit.ui.components.SpacerHeight
+import com.example.gametime_uikit.ui.components.SpacerWidth
 import com.example.gametime_uikit.ui.theme.CustomTheme
 
 
@@ -95,7 +96,7 @@ fun CreateAccount(
                 .fillMaxSize()
                 .background(Color.White), horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Helpers.SpacerHeight(21)
+            SpacerHeight(21)
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -120,7 +121,7 @@ fun CreateAccount(
                     style = CustomTheme.typography.Title1ExtraBold24,
                     color = CustomTheme.colors.accent
                 )
-                Helpers.SpacerHeight(12)
+                SpacerHeight(12)
                 Text(
                     text = "Hi, kindly fill in the form to proceed \n" +
                             "combat",
@@ -128,7 +129,7 @@ fun CreateAccount(
                     style = CustomTheme.typography.Caption2Regular12,
                     color = CustomTheme.colors.black
                 )
-                Helpers.SpacerHeight(30)
+                SpacerHeight(30)
                 Input(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -137,7 +138,7 @@ fun CreateAccount(
                     onValueChange = { fullName = it },
                     placeholder = "Full Name"
                 )
-                Helpers.SpacerHeight(9)
+                SpacerHeight(9)
                 Input(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -155,7 +156,7 @@ fun CreateAccount(
                             .weight(0.2f),
                         placeholder = "Email"
                     )
-                    Helpers.SpacerWidth(18)
+                    SpacerWidth(18)
                     Input(
                         value = phone,
                         onValueChange = { phone = it },
@@ -173,7 +174,7 @@ fun CreateAccount(
                     onValueChange = { email = it },
                     placeholder = "Email"
                 )
-                Helpers.SpacerHeight(9)
+                SpacerHeight(9)
                 Input(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -214,7 +215,7 @@ fun CreateAccount(
             }
 
 
-            Helpers.SpacerHeight(44)
+            SpacerHeight(44)
             PrimaryButton(onClick = {
                 viewModel.registration(
                     RegistrationRequest(
@@ -226,17 +227,19 @@ fun CreateAccount(
                         phone = phone
                     )
                 )
-            }, text = "Create Account", modifier = Modifier.width(210.dp).height(58.dp))
+            }, text = "Create Account", modifier = Modifier
+                .width(210.dp)
+                .height(58.dp))
 
-            Helpers.SpacerHeight(23)
+            SpacerHeight(23)
             Text(
                 text = "Connect With:",
                 style = CustomTheme.typography.Caption2Regular12,
                 textAlign = TextAlign.Center,
                 color = CustomTheme.colors.accent,
             )
-            Helpers.SpacerHeight(7)
-            Row() {
+            SpacerHeight(7)
+            Row {
                 Box(
                     modifier = Modifier
                         .size(35.dp)
@@ -252,7 +255,7 @@ fun CreateAccount(
 
                     )
                 }
-                Helpers.SpacerWidth(15)
+                SpacerWidth(15)
                 Box(
                     modifier = Modifier
                         .size(35.dp)
@@ -270,7 +273,7 @@ fun CreateAccount(
                 }
             }
 
-            Helpers.SpacerHeight(24)
+            SpacerHeight(24)
             TextButton(onClick = { onClickLogin() }) {
                 Text(
                     text = buildAnnotatedString {
@@ -294,9 +297,7 @@ fun CreateAccount(
                     textAlign = TextAlign.Center
                 )
             }
-            Helpers.SpacerHeight(39)
-
-
+            SpacerHeight(39)
         }
     }
 }

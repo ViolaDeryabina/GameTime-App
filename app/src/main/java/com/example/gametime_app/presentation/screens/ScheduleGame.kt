@@ -38,11 +38,11 @@ import com.example.gametime_networklibrary.data.dto.game.CreateGameRequest
 import com.example.gametime_networklibrary.data.repositoryImpl.AuthRepositoryImpl
 import com.example.gametime_uikit.ui.components.BottomSheet
 import com.example.gametime_uikit.ui.components.CustomCheckBox
-import com.example.gametime_uikit.ui.components.Helpers
 import com.example.gametime_uikit.ui.components.Input
 import com.example.gametime_uikit.ui.components.PrimaryButton
 import com.example.gametime_uikit.ui.components.Select
-import com.example.gametime_uikit.ui.components.SelectItem
+//import com.example.gametime_uikit.ui.components.SelectItem
+import com.example.gametime_uikit.ui.components.SpacerHeight
 import com.example.gametime_uikit.ui.theme.CustomTheme
 
 //
@@ -95,7 +95,7 @@ fun ScheduleGame(
                 .padding(horizontal = 30.dp)
                 .background(CustomTheme.colors.white)
         ) {
-            Helpers.SpacerHeight(14)
+            SpacerHeight(14)
             IconButton(onClick = {}) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.back_icon),
@@ -103,7 +103,7 @@ fun ScheduleGame(
                     tint = CustomTheme.colors.accent
                 )
             }
-            Helpers.SpacerHeight(36)
+            SpacerHeight(36)
             Text(
                 "Schedule Game",
                 style = CustomTheme.typography.Caption2Bold12,
@@ -117,14 +117,14 @@ fun ScheduleGame(
                 placeholder = "Game Name"
             )
 
-            var selected by remember { mutableStateOf("") }
-            SelectItem(
-                modifier = Modifier.fillMaxWidth(),
-                categories = listCategory,
-                selectedCategory = selected,
-                onCategorySelected = { selected = it },
-                placeholder = "Category"
-            )
+//            var selected by remember { mutableStateOf("") }
+//            SelectItem(
+//                modifier = Modifier.fillMaxWidth(),
+//                categories = listCategory,
+//                selectedCategory = selected,
+//                onCategorySelected = { selected = it },
+//                placeholder = "Category"
+//            )
 
             Input(
                 modifier = Modifier.fillMaxWidth(),
@@ -132,14 +132,14 @@ fun ScheduleGame(
                 onValueChange = { winnerPrice = it },
                 placeholder = "Winner Price"
             )
-            Helpers.SpacerHeight(47)
+            SpacerHeight(47)
 
 
             Select(modifier = Modifier.width(200.dp), label = "FROM")
             Select(modifier = Modifier.width(200.dp), label = "TO")
 
 
-            Helpers.SpacerHeight(57)
+            SpacerHeight(57)
 
 
             Input(
@@ -148,7 +148,7 @@ fun ScheduleGame(
                 onValueChange = { description = it },
                 placeholder = "Description"
             )
-            Helpers.SpacerHeight(55)
+            SpacerHeight(55)
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -179,7 +179,8 @@ fun ScheduleGame(
                         viewModelGame.createGame(
                             token ?: "", CreateGameRequest(
                                 gameName = gameName,
-                                category = selected,
+//                                category = selected,
+                                category = "hf9yve2sqvkey21",
                                 winningPrice = winnerPrice.toInt(),
                                 from = "",
                                 to = "",
@@ -195,7 +196,7 @@ fun ScheduleGame(
                     text = "Publish"
                 )
             }
-            Helpers.SpacerHeight(67)
+            SpacerHeight(67)
 
             if (showBottomSheet) {
                 BottomSheet(

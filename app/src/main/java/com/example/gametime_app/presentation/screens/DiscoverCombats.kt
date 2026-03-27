@@ -26,9 +26,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.gametime_app.R
 import com.example.gametime_uikit.ui.components.CardTwoPlayer
-import com.example.gametime_uikit.ui.components.Helpers
 import com.example.gametime_uikit.ui.components.PopularPlayer
 import com.example.gametime_uikit.ui.components.Search
+import com.example.gametime_uikit.ui.components.SpacerHeight
+import com.example.gametime_uikit.ui.components.SpacerWidth
 import com.example.gametime_uikit.ui.components.TapBar
 import com.example.gametime_uikit.ui.theme.CustomTheme
 
@@ -75,7 +76,7 @@ fun DiscoverCombats(
                             .fillMaxSize()
                             .padding(horizontal = 30.dp)
                     ) {
-                        Helpers.SpacerHeight(14)
+                        SpacerHeight(14)
                         IconButton(onClick = {}) {
                             Icon(
                                 imageVector = ImageVector.vectorResource(R.drawable.back_icon),
@@ -83,7 +84,7 @@ fun DiscoverCombats(
                                 tint = CustomTheme.colors.white
                             )
                         }
-                        Helpers.SpacerHeight(36)
+                        SpacerHeight(36)
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             verticalAlignment = Alignment.Bottom,
@@ -105,10 +106,10 @@ fun DiscoverCombats(
                             )
 
                         }
-                        Helpers.SpacerHeight(20)
+                        SpacerHeight(20)
 
                         Search(placeholder = "Search Combat", modifier = Modifier.fillMaxWidth())
-                        Helpers.SpacerHeight(29)
+                        SpacerHeight(29)
                     }
                 }
 
@@ -119,7 +120,7 @@ fun DiscoverCombats(
                         .background(CustomTheme.colors.white)
                         .padding(horizontal = 30.dp).verticalScroll(scroll)
                 ) {
-                    Helpers.SpacerHeight(24)
+                    SpacerHeight(24)
 
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -139,7 +140,7 @@ fun DiscoverCombats(
                                 color = CustomTheme.colors.black,
                                 fontSize = 8.sp
                             )
-                            Helpers.SpacerWidth(5)
+                            SpacerWidth(5)
 
                             Icon(
                                 imageVector = ImageVector.vectorResource(R.drawable.access_icon),
@@ -148,7 +149,7 @@ fun DiscoverCombats(
                             )
                         }
                     }
-                    Helpers.SpacerHeight(20)
+                    SpacerHeight(20)
                     CardTwoPlayer(
                         modifier= Modifier.clickable(onClick = {onClickCard()}),
                         gameName = "Halo 5",
@@ -159,7 +160,7 @@ fun DiscoverCombats(
 
 
                     )
-                    Helpers.SpacerHeight(10)
+                    SpacerHeight(10)
 
                     CardTwoPlayer(
                         gameName = "Halo 5",
@@ -170,7 +171,7 @@ fun DiscoverCombats(
 
 
                     )
-                    Helpers.SpacerHeight(10)
+                    SpacerHeight(10)
 
                     CardTwoPlayer(
                         gameName = "Halo 5",
@@ -181,7 +182,7 @@ fun DiscoverCombats(
 
 
                     )
-                    Helpers.SpacerHeight(10)
+                    SpacerHeight(10)
 
                     CardTwoPlayer(
                         gameName = "Halo 5",
@@ -192,7 +193,7 @@ fun DiscoverCombats(
 
 
                     )
-                    Helpers.SpacerHeight(41)
+                    SpacerHeight(41)
 
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -212,7 +213,7 @@ fun DiscoverCombats(
                                 color = CustomTheme.colors.black,
                                 fontSize = 8.sp
                             )
-                            Helpers.SpacerWidth(5)
+                            SpacerWidth(5)
 
                             Icon(
                                 imageVector = ImageVector.vectorResource(R.drawable.access_icon),
@@ -221,7 +222,7 @@ fun DiscoverCombats(
                             )
                         }
                     }
-                    Helpers.SpacerHeight(20)
+                    SpacerHeight(20)
 
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -240,7 +241,7 @@ fun DiscoverCombats(
                             category = "Action, Soccer..."
                         )
                     }
-                    Helpers.SpacerHeight(34)
+                    SpacerHeight(34)
 
 
                     Row(
@@ -261,7 +262,7 @@ fun DiscoverCombats(
                                 color = CustomTheme.colors.black,
                                 fontSize = 8.sp
                             )
-                            Helpers.SpacerWidth(5)
+                            SpacerWidth(5)
 
                             Icon(
                                 imageVector = ImageVector.vectorResource(R.drawable.access_icon),
@@ -270,7 +271,7 @@ fun DiscoverCombats(
                             )
                         }
                     }
-                    Helpers.SpacerHeight(20)
+                    SpacerHeight(20)
 
                     CardTwoPlayer(
                         gameName = "Halo 5",
@@ -279,7 +280,7 @@ fun DiscoverCombats(
                         nameFirstPlayer = "Scott Brown",
                         nameSecondPlayer = "Stone Stella"
                     )
-                    Helpers.SpacerHeight(10)
+                    SpacerHeight(10)
 
                     CardTwoPlayer(
                         gameName = "Halo 5",
@@ -288,7 +289,7 @@ fun DiscoverCombats(
                         nameFirstPlayer = "Scott Brown",
                         nameSecondPlayer = "Stone Stella"
                     )
-                    Helpers.SpacerHeight(10)
+                    SpacerHeight(10)
 
                     CardTwoPlayer(
                         gameName = "Halo 5",
@@ -297,7 +298,7 @@ fun DiscoverCombats(
                         nameFirstPlayer = "Scott Brown",
                         nameSecondPlayer = "Stone Stella"
                     )
-                    Helpers.SpacerHeight(10)
+                    SpacerHeight(10)
 
                     CardTwoPlayer(
                         gameName = "Halo 5",

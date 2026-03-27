@@ -26,10 +26,10 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.example.gametime_app.R
 import com.example.gametime_uikit.ui.components.CardTwoPlayer
-import com.example.gametime_uikit.ui.components.Helpers
+import com.example.gametime_uikit.ui.components.SpacerHeight
+import com.example.gametime_uikit.ui.components.SpacerWidth
 import com.example.gametime_uikit.ui.theme.CustomTheme
 
 //
@@ -55,7 +55,7 @@ fun PlayerInformation(
                 .padding(horizontal = 30.dp)
                 .background(CustomTheme.colors.white)
         ) {
-            Helpers.SpacerHeight(14)
+            SpacerHeight(14)
             IconButton(onClick = { onClickBack() }) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.back_icon),
@@ -63,7 +63,7 @@ fun PlayerInformation(
                     tint = CustomTheme.colors.accent
                 )
             }
-            Helpers.SpacerHeight(36)
+            SpacerHeight(36)
             Text(
                 "Player Information",
                 style = CustomTheme.typography.Caption2Bold12,
@@ -73,25 +73,26 @@ fun PlayerInformation(
                 color = CustomTheme.colors.accent,
 
                 )
-            Helpers.SpacerHeight(16)
+            SpacerHeight(16)
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(276.dp)
-                    .background(CustomTheme.colors.white, shape = Helpers.shape)
-                    .border(1.dp, CustomTheme.colors.accent, shape = Helpers.shape)
+                    .background(CustomTheme.colors.white, shape = CustomTheme.shapes
+                        .roundedCornerShape)
+                    .border(1.dp, CustomTheme.colors.accent, shape = CustomTheme.shapes.roundedCornerShape)
 
             ) {
 
             }
-            Helpers.SpacerHeight(21)
+            SpacerHeight(21)
             Text(
                 "CATEGORY",
                 style = CustomTheme.typography.Caption2Bold12,
                 fontSize = 8.sp,
                 color = CustomTheme.colors.accent
             )
-            Helpers.SpacerHeight(11)
+            SpacerHeight(11)
             val listCategory = listOf("Image", "Circles")
             Row() {
                 listCategory.forEach { listCategory ->
@@ -114,10 +115,10 @@ fun PlayerInformation(
                             color = CustomTheme.colors.accent
                         )
                     }
-                    Helpers.SpacerWidth(10)
+                    SpacerWidth(10)
                 }
             }
-            Helpers.SpacerHeight(16)
+            SpacerHeight(16)
             Text(
                 "Player Combats",
                 style = CustomTheme.typography.Caption2Bold12,
@@ -127,7 +128,7 @@ fun PlayerInformation(
                 color = CustomTheme.colors.accent,
 
                 )
-            Helpers.SpacerHeight(12)
+            SpacerHeight(12)
             CardTwoPlayer(
                 gameName = "Halo 5",
                 status = "Open",
@@ -137,7 +138,7 @@ fun PlayerInformation(
 
 
             )
-            Helpers.SpacerHeight(10)
+            SpacerHeight(10)
             CardTwoPlayer(
                 gameName = "Halo 5",
                 status = "Open",
@@ -147,7 +148,7 @@ fun PlayerInformation(
 
 
             )
-            Helpers.SpacerHeight(10)
+            SpacerHeight(10)
             CardTwoPlayer(
                 gameName = "Halo 5",
                 status = "Open",
@@ -157,7 +158,7 @@ fun PlayerInformation(
 
 
             )
-            Helpers.SpacerHeight(10)
+            SpacerHeight(10)
             CardTwoPlayer(
                 gameName = "Halo 5",
                 status = "Open",

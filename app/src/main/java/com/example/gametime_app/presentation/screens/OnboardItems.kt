@@ -17,7 +17,7 @@ import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.gametime_app.R
-import com.example.gametime_uikit.ui.components.Helpers
+import com.example.gametime_uikit.ui.components.SpacerHeight
 import com.example.gametime_uikit.ui.theme.CustomTheme
 
 data class OnboardData(
@@ -55,7 +55,7 @@ fun OnboardPage(
                 )
             }
             if (data.imagePaddingStart != 30) {
-                Helpers.SpacerHeight(35)
+                SpacerHeight(35)
             }
 
             Text(
@@ -66,7 +66,7 @@ fun OnboardPage(
                 color = CustomTheme.colors.accent
             )
 
-            Helpers.SpacerHeight(36)
+            SpacerHeight(36)
 
             Text(
                 text = data.description,
@@ -140,7 +140,7 @@ fun OnboardThree(
                 color = CustomTheme.colors.accent
             )
 
-            Helpers.SpacerHeight(36)
+            SpacerHeight(36)
 
             Text(
                 text = "Intuitive real life experience on \nmobile. Chat with fellow \ngamers before and after \ncombat for free!",

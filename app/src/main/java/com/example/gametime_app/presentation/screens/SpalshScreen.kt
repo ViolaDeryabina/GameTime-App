@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.gametime_app.R
 import com.example.gametime_networklibrary.data.repositoryImpl.AuthRepositoryImpl
-import com.example.gametime_uikit.ui.components.Helpers
+import com.example.gametime_uikit.ui.components.gradient
 import com.example.gametime_uikit.ui.theme.CustomTheme
 import kotlinx.coroutines.delay
 
@@ -47,12 +47,12 @@ fun SpalshScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(brush = Helpers.gradientActive())
+            .background(brush = gradient())
     ) {
         Column(
             modifier = modifier
                 .fillMaxSize()
-                .background(brush = Helpers.gradientActive()),
+                .background(brush = gradient()),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
