@@ -5,16 +5,16 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -22,10 +22,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -41,9 +42,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.gametime_app.R
-import com.example.gametime_app.presentation.navigation.Screens
+import com.example.gametime_app.presentation.viewModel.RegistrationViewModel
+import com.example.gametime_networklibrary.data.dataSources.NetworkResult
+import com.example.gametime_networklibrary.data.dto.user.registration.RegistrationRequest
 import com.example.gametime_uikit.ui.components.Helpers
 import com.example.gametime_uikit.ui.components.Input
 import com.example.gametime_uikit.ui.components.PrimaryButton
@@ -54,14 +57,22 @@ import com.example.gametime_uikit.ui.theme.CustomTheme
 // Дата создания: 12.02.26
 
 @Composable
-fun CreateAccount(modifier: Modifier = Modifier, navController: NavController) {
+fun CreateAccount(
+    modifier: Modifier = Modifier,
+    viewModel: RegistrationViewModel,
+    onClickMain: () -> Unit,
+    onClickLogin: () -> Unit
+
+) {
+
+    val data by viewModel.data.collectAsStateWithLifecycle()
     val scroll = rememberScrollState()
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White),
     ) {
-        var fullName by remember { mutableStateOf("") }
+        var fullName by rememberSaveable { mutableStateOf("") }
         var userName by remember { mutableStateOf("") }
 
         var phone by remember { mutableStateOf("") }
@@ -72,6 +83,11 @@ fun CreateAccount(modifier: Modifier = Modifier, navController: NavController) {
         var visualTransformationPassword by remember { mutableStateOf(false) }
         var visualTransformationConfirmPassword by remember { mutableStateOf(false) }
 
+        when (data) {
+            is NetworkResult.Success -> {
+                onClickMain()
+            }
+        }
 
         Column(
             modifier = modifier
@@ -114,25 +130,29 @@ fun CreateAccount(modifier: Modifier = Modifier, navController: NavController) {
                 )
                 Helpers.SpacerHeight(30)
                 Input(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(45.dp),
                     value = fullName,
                     onValueChange = { fullName = it },
-                    modifier = Modifier.height(45.dp),
                     placeholder = "Full Name"
                 )
                 Helpers.SpacerHeight(9)
                 Input(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(45.dp),
                     value = userName,
                     onValueChange = { userName = it },
-                    modifier = Modifier.height(45.dp),
                     placeholder = "User Name"
                 )
-                Row() {
+                Row(modifier = Modifier.fillMaxWidth()) {
                     Input(
                         value = "+7",
                         onValueChange = { },
                         modifier = Modifier
                             .height(45.dp)
-                            .width(50.dp),
+                            .weight(0.2f),
                         placeholder = "Email"
                     )
                     Helpers.SpacerWidth(18)
@@ -141,21 +161,25 @@ fun CreateAccount(modifier: Modifier = Modifier, navController: NavController) {
                         onValueChange = { phone = it },
                         modifier = Modifier
                             .height(45.dp)
-                            .width(210.dp),
+                            .weight(0.8f),
                         placeholder = "Your Phone"
                     )
                 }
                 Input(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(45.dp),
                     value = email,
                     onValueChange = { email = it },
-                    modifier = Modifier.height(45.dp),
                     placeholder = "Email"
                 )
                 Helpers.SpacerHeight(9)
                 Input(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(45.dp),
                     value = password,
                     onValueChange = { password = it },
-                    modifier = Modifier.height(45.dp),
                     placeholder = "Password",
                     trailingIcon = {
                         Icon(
@@ -169,16 +193,19 @@ fun CreateAccount(modifier: Modifier = Modifier, navController: NavController) {
                     visualTransformation = if (!visualTransformationPassword) PasswordVisualTransformation() else VisualTransformation.None
                 )
                 Input(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(45.dp),
                     value = confirmPassword,
                     onValueChange = { confirmPassword = it },
-                    modifier = Modifier.height(45.dp),
                     placeholder = "Confirm Password",
                     trailingIcon = {
                         Icon(
                             imageVector = ImageVector.vectorResource(R.drawable.visible),
                             contentDescription = "",
                             modifier = Modifier.clickable(onClick = {
-                                visualTransformationConfirmPassword = !visualTransformationConfirmPassword
+                                visualTransformationConfirmPassword =
+                                    !visualTransformationConfirmPassword
                             })
                         )
                     },
@@ -188,10 +215,63 @@ fun CreateAccount(modifier: Modifier = Modifier, navController: NavController) {
 
 
             Helpers.SpacerHeight(44)
-            PrimaryButton(onClick = {}, text = "Create Account", modifier = Modifier.width(210.dp))
+            PrimaryButton(onClick = {
+                viewModel.registration(
+                    RegistrationRequest(
+                        email = email,
+                        password = password,
+                        passwordConfirm = confirmPassword,
+                        fullName = fullName,
+                        userName = userName,
+                        phone = phone
+                    )
+                )
+            }, text = "Create Account", modifier = Modifier.width(210.dp).height(58.dp))
 
-            Helpers.SpacerHeight(106)
-            TextButton(onClick = {navController.navigate(Screens.Login.route)}) {
+            Helpers.SpacerHeight(23)
+            Text(
+                text = "Connect With:",
+                style = CustomTheme.typography.Caption2Regular12,
+                textAlign = TextAlign.Center,
+                color = CustomTheme.colors.accent,
+            )
+            Helpers.SpacerHeight(7)
+            Row() {
+                Box(
+                    modifier = Modifier
+                        .size(35.dp)
+                        .clip(CircleShape)
+                        .background(Color(0xFFF34A38)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(R.drawable.google),
+                        contentDescription = "",
+                        tint = CustomTheme.colors.white,
+                        modifier = Modifier.size(14.15.dp)
+
+                    )
+                }
+                Helpers.SpacerWidth(15)
+                Box(
+                    modifier = Modifier
+                        .size(35.dp)
+                        .clip(CircleShape)
+                        .background(Color(0xFF2672CB)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(R.drawable.facebook),
+                        contentDescription = "",
+                        tint = CustomTheme.colors.white,
+                        modifier = Modifier.size(14.15.dp)
+
+                    )
+                }
+            }
+
+            Helpers.SpacerHeight(24)
+            TextButton(onClick = { onClickLogin() }) {
                 Text(
                     text = buildAnnotatedString {
                         withStyle(
@@ -214,6 +294,8 @@ fun CreateAccount(modifier: Modifier = Modifier, navController: NavController) {
                     textAlign = TextAlign.Center
                 )
             }
+            Helpers.SpacerHeight(39)
+
 
         }
     }

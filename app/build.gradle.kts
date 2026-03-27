@@ -41,7 +41,17 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.runtime)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    api(libs.retrofit)
+    api(libs.converter.gson)
+    implementation(libs.kotlinx.coroutines.android)
+    api(libs.logging.interceptor)
+
     implementation(files("libs/app-release.aar"))
+    implementation(files("libs/app-release-network.aar"))
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

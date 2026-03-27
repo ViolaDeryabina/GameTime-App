@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.SpanStyle
@@ -42,10 +43,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.gametime_app.R
 import com.example.gametime_app.presentation.navigation.CreateAccount
-import com.example.gametime_app.presentation.navigation.Screens
+import com.example.gametime_app.presentation.navigation.LandingScreen
+import com.example.gametime_app.presentation.viewModel.AuthViewModel
+import com.example.gametime_networklibrary.data.dataSources.NetworkResult
+import com.example.gametime_networklibrary.data.dataSources.Preferences
+import com.example.gametime_networklibrary.data.dto.user.auth.AuthRequest
+import com.example.gametime_networklibrary.data.repositoryImpl.AuthRepositoryImpl
 import com.example.gametime_uikit.ui.components.Helpers
 import com.example.gametime_uikit.ui.components.Input
 import com.example.gametime_uikit.ui.components.PrimaryButton
@@ -56,7 +63,15 @@ import com.example.gametime_uikit.ui.theme.CustomTheme
 // Дата создания: 12.02.26
 
 @Composable
-fun Login(modifier: Modifier = Modifier, navController: NavController) {
+fun Login(
+    modifier: Modifier = Modifier,
+    viewModel: AuthViewModel,
+    prefs: AuthRepositoryImpl,
+    onClickMain: () -> Unit,
+    onClickRegister: () -> Unit
+) {
+
+    val data by viewModel.data.collectAsStateWithLifecycle()
     val scroll = rememberScrollState()
     Box(
         modifier = Modifier
@@ -68,7 +83,12 @@ fun Login(modifier: Modifier = Modifier, navController: NavController) {
 
         var visualTransformationPassword by remember { mutableStateOf(false) }
 
-
+        when (val result = data) {
+            is NetworkResult.Success -> {
+                prefs.saveToken(result.data.token)
+                onClickMain()
+            }
+        }
         Column(
             modifier = modifier
                 .verticalScroll(scroll)
@@ -107,19 +127,22 @@ fun Login(modifier: Modifier = Modifier, navController: NavController) {
                     style = CustomTheme.typography.Caption2Regular12,
                     color = CustomTheme.colors.black
                 )
-
-
+                Helpers.SpacerHeight(40)
                 Input(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(45.dp),
                     value = email,
                     onValueChange = { email = it },
-                    modifier = Modifier.height(45.dp),
                     placeholder = "Email"
                 )
                 Helpers.SpacerHeight(9)
                 Input(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(45.dp),
                     value = password,
                     onValueChange = { password = it },
-                    modifier = Modifier.height(45.dp),
                     placeholder = "Password",
                     trailingIcon = {
                         Icon(
@@ -146,9 +169,12 @@ fun Login(modifier: Modifier = Modifier, navController: NavController) {
 
             }
 
-
             Helpers.SpacerHeight(27)
-            PrimaryButton(onClick = {navController.navigate(Screens.LandingScreen.route)}, text = "Let’s Combat!", modifier = Modifier.width(210.dp))
+            PrimaryButton(onClick = {
+                viewModel.authorization(AuthRequest(email, password))
+            }, text = "Let’s Combat!", modifier = Modifier
+                .width(210.dp)
+                .height(58.dp))
             Helpers.SpacerHeight(23)
             Text(
                 text = "Connect With:",
@@ -192,7 +218,7 @@ fun Login(modifier: Modifier = Modifier, navController: NavController) {
             }
 
             Helpers.SpacerHeight(18)
-            TextButton(onClick = {navController.navigate(route = CreateAccount)}) {
+            TextButton(onClick = { onClickRegister() }) {
                 Text(
                     text = buildAnnotatedString {
                         withStyle(
@@ -225,6 +251,15 @@ fun Login(modifier: Modifier = Modifier, navController: NavController) {
 @Composable
 private fun CreateAccountPreview() {
     CustomTheme {
-        //Login()
+        val viewModelAuth: AuthViewModel = viewModel()
+        val context = LocalContext.current
+        val prefs = Preferences.get(context)
+        val prefsRepository = AuthRepositoryImpl(prefs)
+        Login(
+            viewModel = viewModelAuth,
+            prefs = prefsRepository,
+            onClickMain = { },
+            onClickRegister = { }
+        )
     }
 }

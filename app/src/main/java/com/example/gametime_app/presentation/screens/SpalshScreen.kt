@@ -22,9 +22,8 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.example.gametime_app.R
-import com.example.gametime_app.presentation.navigation.Onboard
+import com.example.gametime_networklibrary.data.repositoryImpl.AuthRepositoryImpl
 import com.example.gametime_uikit.ui.components.Helpers
 import com.example.gametime_uikit.ui.theme.CustomTheme
 import kotlinx.coroutines.delay
@@ -34,10 +33,15 @@ import kotlinx.coroutines.delay
 // Дата создания: 12.02.26
 
 @Composable
-fun SpalshScreen(modifier: Modifier = Modifier, navController: NavController) {
-    LaunchedEffect(Unit){
+fun SpalshScreen(
+    modifier: Modifier = Modifier,
+    onClickOnboard: () -> Unit,
+    onClickMain: () -> Unit,
+    prefsRepository: AuthRepositoryImpl
+) {
+    LaunchedEffect(Unit) {
         delay(1000)
-        navController.navigate(route = Onboard)
+        if (prefsRepository.getToken() == null) onClickOnboard() else onClickMain()
     }
 
     Box(

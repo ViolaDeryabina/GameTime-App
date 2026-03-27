@@ -1,6 +1,7 @@
 package com.example.gametime_app.presentation.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,7 +37,10 @@ import com.example.gametime_uikit.ui.theme.CustomTheme
 // Автор: Дерябина Виолетта
 
 @Composable
-fun DiscoverCombats(modifier: Modifier = Modifier) {
+fun DiscoverCombats(
+    modifier: Modifier = Modifier,
+    onClickCard:()->Unit
+) {
     Scaffold(
         bottomBar = {
             TapBar(
@@ -146,6 +150,7 @@ fun DiscoverCombats(modifier: Modifier = Modifier) {
                     }
                     Helpers.SpacerHeight(20)
                     CardTwoPlayer(
+                        modifier= Modifier.clickable(onClick = {onClickCard()}),
                         gameName = "Halo 5",
                         status = "Open",
                         winnerPrice = 4000,
@@ -311,7 +316,7 @@ fun DiscoverCombats(modifier: Modifier = Modifier) {
 @Composable
 private fun DiscoverCombatsPrev() {
     CustomTheme {
-        DiscoverCombats()
+        //DiscoverCombats()
     }
 }
 

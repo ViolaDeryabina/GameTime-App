@@ -31,11 +31,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.gametime_app.R
-import com.example.gametime_app.presentation.navigation.Screens
 import com.example.gametime_uikit.ui.components.BottomSheet
 import com.example.gametime_uikit.ui.components.CustomCheckBox
 import com.example.gametime_uikit.ui.components.Helpers
-import com.example.gametime_uikit.ui.components.Input
 import com.example.gametime_uikit.ui.components.PrimaryButton
 import com.example.gametime_uikit.ui.components.Select
 import com.example.gametime_uikit.ui.theme.CustomTheme
@@ -45,7 +43,11 @@ import com.example.gametime_uikit.ui.theme.CustomTheme
 // Автор: Дерябина Виолетта
 
 @Composable
-fun CombatInformation(modifier: Modifier = Modifier, navController: NavController) {
+fun CombatInformation(
+    modifier: Modifier = Modifier,
+    onClickPlayerInfo: ()->Unit,
+    onClickBack:()->Unit
+    ) {
     var showBottomSheet by remember { mutableStateOf(false) }
     var checked by remember { mutableStateOf(false) }
     val scroll = rememberScrollState()
@@ -62,7 +64,7 @@ fun CombatInformation(modifier: Modifier = Modifier, navController: NavControlle
                 .background(CustomTheme.colors.white)
         ) {
             Helpers.SpacerHeight(14)
-            IconButton(onClick = { navController.popBackStack() }) {
+            IconButton(onClick = { onClickBack() }) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.back_icon),
                     contentDescription = "",
@@ -273,7 +275,7 @@ fun CombatInformation(modifier: Modifier = Modifier, navController: NavControlle
                     showBottomSheet = true,
                     onDismiss = {
                         showBottomSheet = false
-                        navController.navigate(Screens.PlayerInformation.route)
+                        onClickPlayerInfo()
                     }
                 )
             }

@@ -37,7 +37,11 @@ import com.example.gametime_uikit.ui.theme.CustomTheme
 // Автор: Дерябина Виолетта
 
 @Composable
-fun PlayerInformation(modifier: Modifier = Modifier, navController: NavController) {
+fun PlayerInformation(
+    modifier: Modifier = Modifier,
+    onClickBack: () -> Unit
+
+) {
     val scroll = rememberScrollState()
     Box(
         modifier = Modifier
@@ -52,7 +56,7 @@ fun PlayerInformation(modifier: Modifier = Modifier, navController: NavControlle
                 .background(CustomTheme.colors.white)
         ) {
             Helpers.SpacerHeight(14)
-            IconButton(onClick = {navController.popBackStack()}) {
+            IconButton(onClick = { onClickBack() }) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.back_icon),
                     contentDescription = "",

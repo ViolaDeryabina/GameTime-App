@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,8 +18,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -46,7 +43,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.gametime_app.R
-import com.example.gametime_app.presentation.navigation.Screens
 import com.example.gametime_uikit.ui.components.Back
 import com.example.gametime_uikit.ui.components.CustomCard
 import com.example.gametime_uikit.ui.components.Helpers
@@ -60,7 +56,12 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LandingScreen(modifier: Modifier = Modifier, navController: NavController) {
+fun LandingScreen(
+    modifier: Modifier = Modifier,
+    onClickScheduleGame: () -> Unit,
+    onClickDiscoverCombats: () -> Unit,
+
+) {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
@@ -175,9 +176,7 @@ fun LandingScreen(modifier: Modifier = Modifier, navController: NavController) {
                                 Row(
                                     verticalAlignment = Alignment.CenterVertically,
                                     modifier = Modifier.clickable(onClick = {
-                                        navController.navigate(
-                                            Screens.ScheduleGame.route
-                                        )
+                                        onClickScheduleGame()
                                     })
                                 ) {
                                     Icon(
@@ -279,7 +278,7 @@ fun LandingScreen(modifier: Modifier = Modifier, navController: NavController) {
                 TapBar(
                     onScheduleClick = { },
                     onStatisticsClick = {},
-                    onDiscoverClick = {navController.navigate(Screens.DiscoverCombats.route)},
+                    onDiscoverClick = { onClickDiscoverCombats() },
                     onChatClick = { },
                     onProfileClick = {}
                 )
@@ -342,7 +341,7 @@ fun LandingScreen(modifier: Modifier = Modifier, navController: NavController) {
                         title = "Schedule",
                         description = "Easily schedule event/games\n" +
                                 "then find like minded players for battle. You up for it?",
-                        onClick = {},
+                        onClick = { onClickScheduleGame },
                         image = R.drawable.custom_card1
                     )
                     Helpers.SpacerHeight(10)

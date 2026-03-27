@@ -1,6 +1,7 @@
 package com.example.gametime_app.presentation.screens
 
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,6 +16,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,15 +28,21 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.gametime_app.R
-import com.example.gametime_app.presentation.navigation.Screens
+import com.example.gametime_app.presentation.viewModel.CreateGameViewModel
+import com.example.gametime_app.presentation.viewModel.GetCategoryViewModel
+import com.example.gametime_networklibrary.data.dataSources.NetworkResult
+import com.example.gametime_networklibrary.data.dto.game.CategoryList
+import com.example.gametime_networklibrary.data.dto.game.CreateGameRequest
+import com.example.gametime_networklibrary.data.repositoryImpl.AuthRepositoryImpl
 import com.example.gametime_uikit.ui.components.BottomSheet
 import com.example.gametime_uikit.ui.components.CustomCheckBox
 import com.example.gametime_uikit.ui.components.Helpers
 import com.example.gametime_uikit.ui.components.Input
 import com.example.gametime_uikit.ui.components.PrimaryButton
 import com.example.gametime_uikit.ui.components.Select
+import com.example.gametime_uikit.ui.components.SelectItem
 import com.example.gametime_uikit.ui.theme.CustomTheme
 
 //
@@ -42,7 +50,13 @@ import com.example.gametime_uikit.ui.theme.CustomTheme
 // Автор: Дерябина Виолетта
 
 @Composable
-fun ScheduleGame(modifier: Modifier = Modifier, navController: NavController) {
+fun ScheduleGame(
+    modifier: Modifier = Modifier,
+    viewModel: GetCategoryViewModel,
+    viewModelGame: CreateGameViewModel,
+    onClickMain: () -> Unit,
+    prefs: AuthRepositoryImpl
+) {
     var gameName by remember { mutableStateOf("") }
     var category by remember { mutableStateOf("") }
     var winnerPrice by remember { mutableStateOf("") }
@@ -50,9 +64,26 @@ fun ScheduleGame(modifier: Modifier = Modifier, navController: NavController) {
     var description by remember { mutableStateOf("") }
     var showBottomSheet by remember { mutableStateOf(false) }
     var checked by remember { mutableStateOf(false) }
+    val data by viewModel.data.collectAsStateWithLifecycle()
 
+    var listCategory by remember { mutableStateOf(emptyList<String>()) }
 
+    val token = prefs.getToken() ?: null
+    LaunchedEffect(Unit) {
+        if (token != null) {
+            viewModel.getCategory(token)
+        }
+    }
 
+    when (val result = data) {
+        is NetworkResult.Success -> {
+            listCategory = result.data.items.map { it.title }
+            Log.i("List Category", (listCategory.toString()))
+        }
+
+        is NetworkResult.Error -> {}
+        is NetworkResult.Exception -> {}
+    }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -85,19 +116,16 @@ fun ScheduleGame(modifier: Modifier = Modifier, navController: NavController) {
                 onValueChange = { gameName = it },
                 placeholder = "Game Name"
             )
-            Input(
+
+            var selected by remember { mutableStateOf("") }
+            SelectItem(
                 modifier = Modifier.fillMaxWidth(),
-                value = category,
-                onValueChange = { category = it },
-                placeholder = "Category",
-                trailingIcon = {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.dropdown),
-                        contentDescription = null,
-                        tint = CustomTheme.colors.accent
-                    )
-                }
+                categories = listCategory,
+                selectedCategory = selected,
+                onCategorySelected = { selected = it },
+                placeholder = "Category"
             )
+
             Input(
                 modifier = Modifier.fillMaxWidth(),
                 value = winnerPrice,
@@ -145,8 +173,22 @@ fun ScheduleGame(modifier: Modifier = Modifier, navController: NavController) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
+
                 PrimaryButton(
                     onClick = {
+                        viewModelGame.createGame(
+                            token ?: "", CreateGameRequest(
+                                gameName = gameName,
+                                category = selected,
+                                winningPrice = winnerPrice.toInt(),
+                                from = "",
+                                to = "",
+                                description = description,
+                                notification = checked,
+                                host = ""
+                            )
+                        )
+                        Log.i("ScheduleGame","Создание игры")
                         showBottomSheet = true
                     },
                     modifier = Modifier.width(210.dp),
@@ -160,9 +202,7 @@ fun ScheduleGame(modifier: Modifier = Modifier, navController: NavController) {
                     showBottomSheet = true,
                     onDismiss = {
                         showBottomSheet = false
-                        navController.navigate(
-                            Screens.LandingScreen.route
-                        )
+                        onClickMain()
                     }
                 )
             }
