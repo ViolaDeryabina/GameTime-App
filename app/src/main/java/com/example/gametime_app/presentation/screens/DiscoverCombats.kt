@@ -40,7 +40,8 @@ import com.example.gametime_uikit.ui.theme.CustomTheme
 @Composable
 fun DiscoverCombats(
     modifier: Modifier = Modifier,
-    onClickCard:()->Unit
+    onClickCard:()->Unit,
+    onClickPopular:()->Unit
 ) {
     Scaffold(
         bottomBar = {
@@ -229,6 +230,7 @@ fun DiscoverCombats(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         PopularPlayer(
+                            modifier= Modifier.clickable(onClick = {onClickPopular()}),
                             name = "Scott Brown",
                             level = "Gold Player",
                             status = "Oneline",

@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.gametime_app.R
 import com.example.gametime_uikit.ui.components.CardTwoPlayer
+import com.example.gametime_uikit.ui.components.PlayerInfo
 import com.example.gametime_uikit.ui.components.SpacerHeight
 import com.example.gametime_uikit.ui.components.SpacerWidth
 import com.example.gametime_uikit.ui.theme.CustomTheme
@@ -74,17 +75,7 @@ fun PlayerInformation(
 
                 )
             SpacerHeight(16)
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(276.dp)
-                    .background(CustomTheme.colors.white, shape = CustomTheme.shapes
-                        .roundedCornerShape)
-                    .border(1.dp, CustomTheme.colors.accent, shape = CustomTheme.shapes.roundedCornerShape)
-
-            ) {
-
-            }
+            PlayerInfo(modifier.fillMaxWidth())
             SpacerHeight(21)
             Text(
                 "CATEGORY",

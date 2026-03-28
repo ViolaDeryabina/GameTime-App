@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.gametime_app.R
 import com.example.gametime_uikit.ui.components.BottomSheet
+import com.example.gametime_uikit.ui.components.CombatInfo
 import com.example.gametime_uikit.ui.components.CustomCheckBox
 import com.example.gametime_uikit.ui.components.PrimaryButton
 import com.example.gametime_uikit.ui.components.Select
@@ -71,7 +72,7 @@ fun CombatInformation(
                     tint = CustomTheme.colors.accent
                 )
             }
-            SpacerHeight(36)
+            SpacerHeight(30)
             Text(
                 "Combat Information",
                 style = CustomTheme.typography.Caption2Bold12,
@@ -80,16 +81,8 @@ fun CombatInformation(
                 lineHeight = 30.sp,
                 color = CustomTheme.colors.accent,
             )
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(252.dp)
-                    .background(CustomTheme.colors.white, shape = CustomTheme.shapes.roundedCornerShape)
-                    .border(1.dp, CustomTheme.colors.accent, shape = CustomTheme.shapes.roundedCornerShape)
-
-            ) {
-
-            }
+            SpacerHeight(16)
+            CombatInfo(modifier = Modifier.fillMaxWidth())
 
             SpacerHeight(27)
             Text(
@@ -276,7 +269,10 @@ fun CombatInformation(
                     onDismiss = {
                         showBottomSheet = false
                         onClickPlayerInfo()
-                    }
+                    },
+                    title = "Successfully Join Combat",
+                    description = "Wanna know more information bout’ this competition?",
+                    textButton = "Discover combats"
                 )
             }
 

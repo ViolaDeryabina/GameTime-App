@@ -42,6 +42,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.gametime_app.R
+import com.example.gametime_app.presentation.navigation.DiscoverCombats
+import com.example.gametime_app.presentation.navigation.ScheduleGame
 import com.example.gametime_uikit.ui.components.Back
 import com.example.gametime_uikit.ui.components.CustomCard
 import com.example.gametime_uikit.ui.components.SpacerHeight
@@ -60,7 +62,9 @@ fun LandingScreen(
     modifier: Modifier = Modifier,
     onClickScheduleGame: () -> Unit,
     onClickDiscoverCombats: () -> Unit,
-    onStatisticsClick: () -> Unit
+    onStatisticsClick: () -> Unit,
+    onScheduleClick: () -> Unit,
+
     ) {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -69,10 +73,13 @@ fun LandingScreen(
         drawerState = drawerState,
         drawerContent = {
             ModalDrawerSheet(modifier = Modifier.fillMaxSize()) {
-                Column() {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(CustomTheme.colors.white)
+                ) {
                     Box(
                         modifier = Modifier
-                            .padding()
                             .fillMaxSize()
                             .background(CustomTheme.colors.white)
 
@@ -191,10 +198,12 @@ fun LandingScreen(
                                     )
                                 }
                                 SpacerHeight(40)
-                                Row(verticalAlignment = Alignment.CenterVertically,
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
                                     modifier = Modifier.clickable(onClick = {
                                         onStatisticsClick()
-                                    })) {
+                                    })
+                                ) {
                                     Icon(
                                         imageVector = ImageVector.vectorResource(R.drawable.statistics_icon),
                                         contentDescription = "",
@@ -279,8 +288,8 @@ fun LandingScreen(
         Scaffold(
             bottomBar = {
                 TapBar(
-                    onScheduleClick = { },
-                    onStatisticsClick = {},
+                    onScheduleClick = { onScheduleClick() },
+                    onStatisticsClick = { onStatisticsClick() },
                     onDiscoverClick = { onClickDiscoverCombats() },
                     onChatClick = { },
                     onProfileClick = {}
@@ -288,7 +297,7 @@ fun LandingScreen(
             },
             topBar = {
                 TopAppBar(
-                    modifier = Modifier.padding(horizontal = 27.dp),
+
                     colors = TopAppBarColors(
                         containerColor = CustomTheme.colors.white,
                         scrolledContainerColor = CustomTheme.colors.white,
@@ -299,7 +308,8 @@ fun LandingScreen(
                     title = {
                         Row(
                             modifier = Modifier
-                                .fillMaxWidth(),
+                                .fillMaxWidth()
+                                .padding(horizontal = 27.dp),
                             horizontalArrangement = Arrangement.End,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
@@ -315,7 +325,9 @@ fun LandingScreen(
                         }
                     },
                     navigationIcon = {
-                        IconButton(onClick = { scope.launch { drawerState.open() } }) {
+                        IconButton(
+                            modifier = Modifier.padding(start = 27.dp),
+                            onClick = { scope.launch { drawerState.open() } }) {
                             Icon(
                                 imageVector = ImageVector.vectorResource(R.drawable.hamburger),
                                 contentDescription = "Menu",
@@ -353,7 +365,7 @@ fun LandingScreen(
                         title = "Statistics",
                         description = "All data from previous and \n" +
                                 "upcoming games can be found here ",
-                        onClick = {onStatisticsClick()},
+                        onClick = { onStatisticsClick() },
                         image = R.drawable.custom_card2
                     )
                     SpacerHeight(10)
@@ -384,7 +396,12 @@ fun LandingScreen(
 @Composable
 private fun LandingScreenPrev() {
     CustomTheme {
-        //LandingScreen()
+        LandingScreen(
+            onClickScheduleGame = { },
+            onClickDiscoverCombats = { },
+            onStatisticsClick = { },
+            onScheduleClick = {}
+        )
     }
 }
 

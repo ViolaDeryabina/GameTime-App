@@ -41,6 +41,7 @@ import com.example.gametime_uikit.ui.components.CustomCheckBox
 import com.example.gametime_uikit.ui.components.Input
 import com.example.gametime_uikit.ui.components.PrimaryButton
 import com.example.gametime_uikit.ui.components.Select
+import com.example.gametime_uikit.ui.components.SelectItem
 //import com.example.gametime_uikit.ui.components.SelectItem
 import com.example.gametime_uikit.ui.components.SpacerHeight
 import com.example.gametime_uikit.ui.theme.CustomTheme
@@ -117,14 +118,14 @@ fun ScheduleGame(
                 placeholder = "Game Name"
             )
 
-//            var selected by remember { mutableStateOf("") }
-//            SelectItem(
-//                modifier = Modifier.fillMaxWidth(),
-//                categories = listCategory,
-//                selectedCategory = selected,
-//                onCategorySelected = { selected = it },
-//                placeholder = "Category"
-//            )
+            var selected by remember { mutableStateOf("") }
+            SelectItem(
+                modifier = Modifier.fillMaxWidth(),
+                category = listCategory,
+                value = selected,
+                onValueChange = { selected = it },
+                placeholder = "Category"
+            )
 
             Input(
                 modifier = Modifier.fillMaxWidth(),
@@ -189,7 +190,7 @@ fun ScheduleGame(
                                 host = ""
                             )
                         )
-                        Log.i("ScheduleGame","Создание игры")
+                        Log.i("ScheduleGame", "Создание игры")
                         showBottomSheet = true
                     },
                     modifier = Modifier.width(210.dp),

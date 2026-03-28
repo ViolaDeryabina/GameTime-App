@@ -38,6 +38,11 @@ fun AppNavigation() {
         val prefsRepository = AuthRepositoryImpl(prefs)
         val navController = rememberNavController()
 
+
+        fun onClickDiscoverCombats() = navController.navigate(route = DiscoverCombats)
+        fun onStatisticsClick() = navController.navigate(route = Statistics)
+        fun onScheduleClick() = navController.navigate(route = ScheduleGame)
+
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             NavHost(
                 navController = navController,
@@ -80,7 +85,8 @@ fun AppNavigation() {
                     LandingScreen(
                         onClickScheduleGame = { navController.navigate(route = ScheduleGame) },
                         onClickDiscoverCombats = { navController.navigate(route = DiscoverCombats) },
-                        onStatisticsClick = { navController.navigate(route = Statistics)}
+                        onStatisticsClick = { onStatisticsClick() },
+                        onScheduleClick = {onScheduleClick()}
                     )
 
                 }
@@ -97,7 +103,8 @@ fun AppNavigation() {
                 }
                 composable<DiscoverCombats> {
                     DiscoverCombats(
-                        onClickCard = { navController.navigate(route = CombatInformation) }
+                        onClickCard = { navController.navigate(route = CombatInformation) },
+                        onClickPopular={navController.navigate(route = PlayerInformation)}
                     )
 
                 }
