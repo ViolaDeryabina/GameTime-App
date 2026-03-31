@@ -48,8 +48,10 @@ fun CombatInformation(
     modifier: Modifier = Modifier,
     onClickPlayerInfo: () -> Unit,
     onClickBack: () -> Unit,
-    onCircleGame: () -> Unit
+    onCircleGame: () -> Unit,
+    onImageGame: () -> Unit
 ) {
+    val isCircle = false
     var showBottomSheet by remember { mutableStateOf(false) }
     var checked by remember { mutableStateOf(false) }
     val scroll = rememberScrollState()
@@ -257,7 +259,11 @@ fun CombatInformation(
                 PrimaryButton(
                     onClick = {
                         //showBottomSheet = true
-                        onCircleGame()
+                        if (isCircle) {
+                            onCircleGame()
+                        } else {
+                            onImageGame()
+                        }
                     },
                     modifier = Modifier.width(210.dp),
                     text = "Join Combat!"

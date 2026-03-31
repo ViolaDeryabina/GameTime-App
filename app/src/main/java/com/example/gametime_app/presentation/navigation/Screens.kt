@@ -26,3 +26,5 @@ object LandingScreen
 object Statistics
 @Serializable
 object CircleGame
+@Serializable
+object ImageGameScreen

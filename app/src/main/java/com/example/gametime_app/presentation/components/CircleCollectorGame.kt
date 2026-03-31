@@ -137,9 +137,6 @@ fun CircleCollectorGame(modifier: Modifier = Modifier) {
         if (isWin) {
             Text(
                 "УРА! ПАЗЛ СОБРАН",
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .padding(top = 200.dp),
                 style = MaterialTheme.typography.headlineLarge,
                 color = Color(0xFF2E7D32)
             )

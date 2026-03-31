@@ -20,6 +20,7 @@ import com.example.gametime_uikit.ui.theme.CustomTheme
 @Composable
 fun CircleGame(modifier: Modifier = Modifier) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        SpacerHeight(55)
         Text(
             "Game  Circle",
             style = CustomTheme.typography.Caption2Bold12,
