@@ -25,6 +25,7 @@ import com.example.gametime_app.presentation.screens.Statistics
 import com.example.gametime_app.presentation.viewModel.AuthViewModel
 import com.example.gametime_app.presentation.viewModel.CreateGameViewModel
 import com.example.gametime_app.presentation.viewModel.GetCategoryViewModel
+import com.example.gametime_app.presentation.viewModel.GetStatisticViewModel
 import com.example.gametime_app.presentation.viewModel.RegistrationViewModel
 import com.example.gametime_networklibrary.data.dataSources.Preferences
 import com.example.gametime_networklibrary.data.repositoryImpl.AuthRepositoryImpl
@@ -122,8 +123,12 @@ fun AppNavigation() {
                     )
                 }
                 composable<Statistics> {
+                    val statisticViewModel: GetStatisticViewModel = viewModel()
+
                     Statistics(
-                        onClickBack = { navController.popBackStack() }
+                        viewModel = statisticViewModel,
+                        onClickBack = { navController.popBackStack() },
+                        prefs = prefsRepository
                     )
                 }
             }

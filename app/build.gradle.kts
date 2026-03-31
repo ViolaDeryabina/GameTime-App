@@ -51,7 +51,8 @@ dependencies {
     api(libs.logging.interceptor)
 
     implementation(files("libs/app-release.aar"))
-    implementation(files("libs/app-release-network.aar"))
+    //implementation(files("libs/app-release-network.aar"))
+    implementation(files("libs/app-debug-network.aar"))
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -62,6 +63,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.apollo.runtime)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
