@@ -1,26 +1,43 @@
 package com.example.gametime_app.presentation.screens
 
+import android.graphics.Bitmap
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.asAndroidBitmap
-import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
-import com.example.gametime_app.R
-import com.example.gametime_app.presentation.components.CircleCollectorGame
-import com.example.gametime_app.presentation.components.ImageGame
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.gametime_app.presentation.components.PuzzleGrid
+import com.example.gametime_app.presentation.viewModel.ImageGameViewModel
 import com.example.gametime_uikit.ui.components.PrimaryButton
 import com.example.gametime_uikit.ui.components.SpacerHeight
 import com.example.gametime_uikit.ui.components.Timer
 import com.example.gametime_uikit.ui.theme.CustomTheme
 
 @Composable
-fun ImageGameScreen(modifier: Modifier = Modifier) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+fun ImageGameScreen(
+    modifier: Modifier = Modifier,
+    viewModel: ImageGameViewModel = viewModel(),
+    bitmap: Bitmap
+) {
+
+    val tiles = viewModel.tiles
+    val board = viewModel.board
+    val selectedIndex = viewModel.selectedIndex
+    val isWin = viewModel.isWin
+
+    LaunchedEffect(bitmap) {
+        viewModel.initGame(bitmap)
+    }
+
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         SpacerHeight(55)
         Text(
             "Game Image",
@@ -30,11 +47,25 @@ fun ImageGameScreen(modifier: Modifier = Modifier) {
         )
         SpacerHeight(30)
         Timer()
-        ImageGame(Modifier.fillMaxWidth().weight(1f),
-            bitmap = ImageBitmap.imageResource(R.drawable.dragon_image).asAndroidBitmap())
+        SpacerHeight(26)
+        PuzzleGrid(
+            tiles = tiles,
+            board = board,
+            selectedIndex = selectedIndex,
+            onTileClick = { viewModel.onTileClick(it) }
+        )
+        SpacerHeight(26)
+        if (isWin) {
+            Text(
+                "УРА! ПАЗЛ СОБРАН",
+                style = MaterialTheme.typography.headlineLarge,
+                color = Color(0xFF2E7D32)
+            )
+        }
         PrimaryButton(
-            onClick = {},
-            text = "Surrender")
+            onClick = { viewModel.shuffleBoard() },
+            text = "Surrender"
+        )
         SpacerHeight(69)
     }
 }

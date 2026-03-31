@@ -1,28 +1,30 @@
 package com.example.gametime_app.presentation.navigation
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.imageResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.gametime_app.presentation.screens.CreateAccount
-import com.example.gametime_app.presentation.screens.Login
-import com.example.gametime_app.presentation.screens.Onboard
-import com.example.gametime_app.presentation.screens.SpalshScreen
-import com.example.gametime_app.presentation.navigation.LandingScreen
+import com.example.gametime_app.R
 import com.example.gametime_app.presentation.screens.CircleGame
 import com.example.gametime_app.presentation.screens.CombatInformation
+import com.example.gametime_app.presentation.screens.CreateAccount
 import com.example.gametime_app.presentation.screens.DiscoverCombats
 import com.example.gametime_app.presentation.screens.ImageGameScreen
 import com.example.gametime_app.presentation.screens.LandingScreen
+import com.example.gametime_app.presentation.screens.Login
+import com.example.gametime_app.presentation.screens.Onboard
 import com.example.gametime_app.presentation.screens.PlayerInformation
 import com.example.gametime_app.presentation.screens.ScheduleGame
+import com.example.gametime_app.presentation.screens.SpalshScreen
 import com.example.gametime_app.presentation.screens.Statistics
 import com.example.gametime_app.presentation.viewModel.AuthViewModel
 import com.example.gametime_app.presentation.viewModel.CreateGameViewModel
@@ -89,7 +91,7 @@ fun AppNavigation() {
                         onClickScheduleGame = { navController.navigate(route = ScheduleGame) },
                         onClickDiscoverCombats = { navController.navigate(route = DiscoverCombats) },
                         onStatisticsClick = { onStatisticsClick() },
-                        onScheduleClick = {onScheduleClick()}
+                        onScheduleClick = { onScheduleClick() }
                     )
 
                 }
@@ -107,7 +109,7 @@ fun AppNavigation() {
                 composable<DiscoverCombats> {
                     DiscoverCombats(
                         onClickCard = { navController.navigate(route = CombatInformation) },
-                        onClickPopular={navController.navigate(route = PlayerInformation)}
+                        onClickPopular = { navController.navigate(route = PlayerInformation) }
                     )
 
                 }
@@ -116,8 +118,8 @@ fun AppNavigation() {
                         modifier = Modifier.padding(innerPadding),
                         onClickPlayerInfo = { navController.navigate(route = PlayerInformation) },
                         onClickBack = { navController.popBackStack() },
-                        onCircleGame = { navController.navigate(route = CircleGame)},
-                        onImageGame = {navController.navigate(route = ImageGameScreen)}
+                        onCircleGame = { navController.navigate(route = CircleGame) },
+                        onImageGame = { navController.navigate(route = ImageGameScreen) }
                     )
                 }
                 composable<PlayerInformation> {
@@ -139,7 +141,10 @@ fun AppNavigation() {
                     CircleGame()
                 }
                 composable<ImageGameScreen> {
-                    ImageGameScreen()
+                    ImageGameScreen(
+                        bitmap = ImageBitmap.imageResource(R.drawable.dragon_image)
+                            .asAndroidBitmap()
+                    )
                 }
             }
         }
