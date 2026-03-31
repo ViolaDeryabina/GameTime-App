@@ -24,3 +24,5 @@ object CombatInformation
 object LandingScreen
 @Serializable
 object Statistics
+@Serializable
+object CircleGame

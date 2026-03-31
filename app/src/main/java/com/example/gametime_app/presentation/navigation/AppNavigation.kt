@@ -16,6 +16,7 @@ import com.example.gametime_app.presentation.screens.Login
 import com.example.gametime_app.presentation.screens.Onboard
 import com.example.gametime_app.presentation.screens.SpalshScreen
 import com.example.gametime_app.presentation.navigation.LandingScreen
+import com.example.gametime_app.presentation.screens.CircleGame
 import com.example.gametime_app.presentation.screens.CombatInformation
 import com.example.gametime_app.presentation.screens.DiscoverCombats
 import com.example.gametime_app.presentation.screens.LandingScreen
@@ -114,6 +115,7 @@ fun AppNavigation() {
                         modifier = Modifier.padding(innerPadding),
                         onClickPlayerInfo = { navController.navigate(route = PlayerInformation) },
                         onClickBack = { navController.popBackStack() },
+                        onCircleGame = { navController.navigate(route = CircleGame)}
                     )
                 }
                 composable<PlayerInformation> {
@@ -130,6 +132,9 @@ fun AppNavigation() {
                         onClickBack = { navController.popBackStack() },
                         prefs = prefsRepository
                     )
+                }
+                composable<CircleGame> {
+                    CircleGame()
                 }
             }
         }

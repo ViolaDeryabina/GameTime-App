@@ -2,11 +2,9 @@ package com.example.gametime_app.presentation.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.gametime_app.data.MatuleApp
+import com.example.gametime_app.domain.UseCases
 import com.example.gametime_networklibrary.data.dataSources.NetworkResult
 import com.example.gametime_networklibrary.data.dto.game.CategoryList
-import com.example.gametime_networklibrary.data.dto.user.auth.AuthRequest
-import com.example.gametime_networklibrary.data.dto.user.auth.AuthResponse
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,7 +17,7 @@ class GetCategoryViewModel : ViewModel() {
     fun getCategory(token: String) {
         _data.value = null
         viewModelScope.launch {
-            when (val result = MatuleApp.getCategory(token)) {
+            when (val result = UseCases.getCategory(token)) {
                 is NetworkResult.Success -> {
                     _data.value = NetworkResult.Success(result.data)
                 }

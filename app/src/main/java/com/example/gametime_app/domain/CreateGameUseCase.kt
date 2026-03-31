@@ -1,4 +1,4 @@
-package com.example.gametime_app.data
+package com.example.gametime_app.domain
 
 import com.example.gametime_networklibrary.data.dataSources.NetworkResult
 import com.example.gametime_networklibrary.data.dto.game.CreateGameRequest

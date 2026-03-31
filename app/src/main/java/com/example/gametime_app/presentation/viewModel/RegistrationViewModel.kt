@@ -2,10 +2,8 @@ package com.example.gametime_app.presentation.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.gametime_app.data.MatuleApp
+import com.example.gametime_app.domain.UseCases
 import com.example.gametime_networklibrary.data.dataSources.NetworkResult
-import com.example.gametime_networklibrary.data.dto.user.auth.AuthRequest
-import com.example.gametime_networklibrary.data.dto.user.auth.AuthResponse
 import com.example.gametime_networklibrary.data.dto.user.auth.Player
 import com.example.gametime_networklibrary.data.dto.user.registration.RegistrationRequest
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +18,7 @@ class RegistrationViewModel : ViewModel() {
     fun registration(register: RegistrationRequest) {
         _data.value = null
         viewModelScope.launch {
-            when (val result = MatuleApp.registration(register)) {
+            when (val result = UseCases.registration(register)) {
                 is NetworkResult.Success -> {
                     _data.value = NetworkResult.Success(result.data)
                 }

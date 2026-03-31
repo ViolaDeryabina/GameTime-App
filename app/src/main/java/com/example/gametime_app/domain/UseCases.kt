@@ -1,12 +1,9 @@
-package com.example.gametime_app.data
+package com.example.gametime_app.domain
 
 import com.example.gametime_networklibrary.data.dataSources.Apollo
 import com.example.gametime_networklibrary.data.dataSources.NetworkService
-import com.example.gametime_networklibrary.data.dataSources.service.UserService
-import com.example.gametime_networklibrary.data.repositoryImpl.ApolloRepositoryImpl
-import com.example.gametime_networklibrary.domain.repository.ApolloRepository
 
-object MatuleApp {
+object UseCases {
     val authorization = AuthUseCase(NetworkService.userRepository)
     val registration = RegisterUseCase(NetworkService.userRepository)
     val getCategory = GetCategoryUseCase(NetworkService.gameRepository)
