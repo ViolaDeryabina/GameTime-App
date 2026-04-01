@@ -17,6 +17,7 @@ import com.example.gametime_uikit.ui.components.PrimaryButton
 import com.example.gametime_uikit.ui.components.SpacerHeight
 import com.example.gametime_uikit.ui.components.Timer
 import com.example.gametime_uikit.ui.theme.CustomTheme
+import io.appmetrica.analytics.AppMetrica
 
 @Composable
 fun ImageGameScreen(
@@ -31,6 +32,7 @@ fun ImageGameScreen(
     val isWin = viewModel.isWin
 
     LaunchedEffect(bitmap) {
+        AppMetrica.reportEvent("Initial game")
         viewModel.initGame(bitmap)
     }
 
@@ -52,10 +54,13 @@ fun ImageGameScreen(
             tiles = tiles,
             board = board,
             selectedIndex = selectedIndex,
-            onTileClick = { viewModel.onTileClick(it) }
+            onTileClick = {
+                viewModel.onTileClick(it)
+            }
         )
         SpacerHeight(26)
         if (isWin) {
+            AppMetrica.reportEvent("Game finished")
             Text(
                 "УРА! ПАЗЛ СОБРАН",
                 style = MaterialTheme.typography.headlineLarge,
@@ -63,7 +68,10 @@ fun ImageGameScreen(
             )
         }
         PrimaryButton(
-            onClick = { viewModel.shuffleBoard() },
+            onClick = {
+                AppMetrica.reportEvent("Game restarted")
+                viewModel.shuffleBoard()
+            },
             text = "Surrender"
         )
         SpacerHeight(69)

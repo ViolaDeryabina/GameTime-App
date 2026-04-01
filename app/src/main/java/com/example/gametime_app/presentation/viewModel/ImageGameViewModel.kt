@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.lifecycle.ViewModel
+import io.appmetrica.analytics.AppMetrica
 
 class ImageGameViewModel : ViewModel() {
     var tiles by mutableStateOf<List<ImageBitmap>>( emptyList())
@@ -35,6 +36,7 @@ class ImageGameViewModel : ViewModel() {
         val currentSelected = selectedIndex
 
         if (currentSelected != null) {
+            AppMetrica.reportEvent("Tiles swaped")
             val newList = board.toMutableList()
             val temp = newList[currentSelected]
             newList[currentSelected] = newList[gridIndex]
@@ -44,6 +46,7 @@ class ImageGameViewModel : ViewModel() {
             selectedIndex = null
             isWin = newList == (0..8).toList()
         } else {
+            AppMetrica.reportEvent("Tile selected")
             selectedIndex = gridIndex
         }
     }
