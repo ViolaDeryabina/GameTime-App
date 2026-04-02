@@ -27,6 +27,7 @@ import com.example.gametime_app.presentation.screens.ScheduleGame
 import com.example.gametime_app.presentation.screens.SpalshScreen
 import com.example.gametime_app.presentation.screens.Statistics
 import com.example.gametime_app.presentation.viewModel.AuthViewModel
+import com.example.gametime_app.presentation.viewModel.CircleGameViewModel
 import com.example.gametime_app.presentation.viewModel.CreateGameViewModel
 import com.example.gametime_app.presentation.viewModel.GetCategoryViewModel
 import com.example.gametime_app.presentation.viewModel.GetStatisticViewModel
@@ -138,7 +139,8 @@ fun AppNavigation() {
                     )
                 }
                 composable<CircleGame> {
-                    CircleGame()
+                    val viewModel: CircleGameViewModel = viewModel()
+                    CircleGame(viewModel = viewModel)
                 }
                 composable<ImageGameScreen> {
                     ImageGameScreen(

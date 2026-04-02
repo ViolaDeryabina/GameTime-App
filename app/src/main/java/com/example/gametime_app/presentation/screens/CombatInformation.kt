@@ -51,7 +51,7 @@ fun CombatInformation(
     onCircleGame: () -> Unit,
     onImageGame: () -> Unit
 ) {
-    val isCircle = false
+    val isCircle = true
     var showBottomSheet by remember { mutableStateOf(false) }
     var checked by remember { mutableStateOf(false) }
     val scroll = rememberScrollState()
