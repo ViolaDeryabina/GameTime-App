@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.gametime_app.R
+import com.example.gametime_app.presentation.components.PDFViewer
 import com.example.gametime_app.presentation.viewModel.AuthViewModel
 import com.example.gametime_networklibrary.data.dataSources.NetworkResult
 import com.example.gametime_networklibrary.data.dataSources.Preferences
@@ -72,6 +73,9 @@ fun Login(
 
     val data by viewModel.data.collectAsStateWithLifecycle()
     val scroll = rememberScrollState()
+    var isPolicyVisible by remember { mutableStateOf(false) }
+    var isDocumentVisible by remember { mutableStateOf(false) }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -189,7 +193,8 @@ fun Login(
                     modifier = Modifier
                         .size(35.dp)
                         .clip(CircleShape)
-                        .background(Color(0xFFF34A38)),
+                        .background(Color(0xFFF34A38))
+                        .clickable(onClick = { isPolicyVisible = true }),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
@@ -205,7 +210,8 @@ fun Login(
                     modifier = Modifier
                         .size(35.dp)
                         .clip(CircleShape)
-                        .background(Color(0xFF2672CB)),
+                        .background(Color(0xFF2672CB))
+                        .clickable(onClick = { isDocumentVisible = true }),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
@@ -244,6 +250,27 @@ fun Login(
             }
             SpacerHeight(43)
 
+        }
+
+        if (isPolicyVisible || isDocumentVisible) {
+            Box(
+                modifier = modifier.fillMaxSize()
+            ) {
+                if (isPolicyVisible) {
+                    PDFViewer(R.raw.policy_ru)
+                }
+                if (isDocumentVisible) {
+                    PDFViewer(R.raw.policy_ru)
+                }
+                PrimaryButton(
+                    modifier = Modifier.align(Alignment.BottomCenter),
+                    onClick = {
+                        isPolicyVisible = false
+                        isDocumentVisible = false
+                    },
+                    text = "Close"
+                )
+            }
         }
     }
 }
