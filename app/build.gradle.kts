@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.gametime_app"
-        minSdk = 33
+        minSdk = 34
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -51,7 +51,7 @@ dependencies {
     api(libs.logging.interceptor)
 
     implementation(files("libs/app-release.aar"))
-    //implementation(files("libs/app-release-network.aar"))
+    implementation(files("libs/image-game-debug.aar"))
     implementation(files("libs/app-debug-network.aar"))
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.core.ktx)

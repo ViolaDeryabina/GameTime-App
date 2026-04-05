@@ -62,7 +62,9 @@ class CircleGameViewModel : ViewModel() {
 
         // Используем размер Canvas, который доступен через size.toCenterOffset()
         // или заранее сохраненную переменную центра.
-        val canvasCenter = Offset(canvasSize.width / 2f, canvasSize.height / 2f)
+        val canvasCenter = Offset(
+            canvasSize.width / 2f,
+            canvasSize.height / 2f)
         val distanceToCenter = (nextPos - canvasCenter).getDistance()
 
         // Условие захвата: если центр круга подошел близко к центру экрана
@@ -74,8 +76,7 @@ class CircleGameViewModel : ViewModel() {
                 current = canvasCenter,
                 isFixed = true
             )
-            draggedIndex =
-                null // Сбрасываем индекс, так как круг зафиксирован
+            draggedIndex = null // Сбрасываем индекс, так как круг зафиксирован
         } else {
             newList[index] = circle.copy(current = nextPos)
         }

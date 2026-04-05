@@ -12,11 +12,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.gametime_app.presentation.components.PuzzleGrid
-import com.example.gametime_app.presentation.viewModel.ImageGameViewModel
 import com.example.gametime_uikit.ui.components.PrimaryButton
 import com.example.gametime_uikit.ui.components.SpacerHeight
 import com.example.gametime_uikit.ui.components.Timer
 import com.example.gametime_uikit.ui.theme.CustomTheme
+import com.example.image.presentation.viewModels.ImageGameViewModel
 import io.appmetrica.analytics.AppMetrica
 
 @Composable
@@ -33,7 +33,7 @@ fun ImageGameScreen(
 
     LaunchedEffect(bitmap) {
         AppMetrica.reportEvent("Initial game")
-        viewModel.initGame(bitmap)
+        viewModel.start(bitmap)
     }
 
     Column(
@@ -70,7 +70,7 @@ fun ImageGameScreen(
         PrimaryButton(
             onClick = {
                 AppMetrica.reportEvent("Game restarted")
-                viewModel.shuffleBoard()
+                viewModel.restart()
             },
             text = "Surrender"
         )
