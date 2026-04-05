@@ -28,3 +28,5 @@ object Statistics
 object CircleGame
 @Serializable
 object ImageGameScreen
+@Serializable
+object ProfileScreen

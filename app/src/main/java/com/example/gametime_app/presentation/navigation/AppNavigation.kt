@@ -23,6 +23,7 @@ import com.example.gametime_app.presentation.screens.LandingScreen
 import com.example.gametime_app.presentation.screens.Login
 import com.example.gametime_app.presentation.screens.Onboard
 import com.example.gametime_app.presentation.screens.PlayerInformation
+import com.example.gametime_app.presentation.screens.ProfileScreen
 import com.example.gametime_app.presentation.screens.ScheduleGame
 import com.example.gametime_app.presentation.screens.SpalshScreen
 import com.example.gametime_app.presentation.screens.Statistics
@@ -92,9 +93,9 @@ fun AppNavigation() {
                         onClickScheduleGame = { navController.navigate(route = ScheduleGame) },
                         onClickDiscoverCombats = { navController.navigate(route = DiscoverCombats) },
                         onStatisticsClick = { onStatisticsClick() },
-                        onScheduleClick = { onScheduleClick() }
+                        onScheduleClick = { onScheduleClick() },
+                        onProfileScreen = {navController.navigate(route = ProfileScreen)}
                     )
-
                 }
                 composable<ScheduleGame> {
                     val getCategoryViewModel: GetCategoryViewModel = viewModel()
@@ -147,6 +148,9 @@ fun AppNavigation() {
                         bitmap = ImageBitmap.imageResource(R.drawable.dragon_image)
                             .asAndroidBitmap()
                     )
+                }
+                composable<ProfileScreen> {
+                    ProfileScreen()
                 }
             }
         }

@@ -49,7 +49,7 @@ dependencies {
     api(libs.converter.gson)
     implementation(libs.kotlinx.coroutines.android)
     api(libs.logging.interceptor)
-
+    implementation("io.coil-kt:coil-compose:2.7.0")
     implementation(files("libs/app-release.aar"))
     implementation(files("libs/image-game-debug.aar"))
     implementation(files("libs/app-debug-network.aar"))

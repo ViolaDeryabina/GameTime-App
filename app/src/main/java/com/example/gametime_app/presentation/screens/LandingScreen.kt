@@ -42,8 +42,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.gametime_app.R
-import com.example.gametime_app.presentation.navigation.DiscoverCombats
-import com.example.gametime_app.presentation.navigation.ScheduleGame
 import com.example.gametime_uikit.ui.components.Back
 import com.example.gametime_uikit.ui.components.CustomCard
 import com.example.gametime_uikit.ui.components.SpacerHeight
@@ -64,8 +62,8 @@ fun LandingScreen(
     onClickDiscoverCombats: () -> Unit,
     onStatisticsClick: () -> Unit,
     onScheduleClick: () -> Unit,
-
-    ) {
+    onProfileScreen: () -> Unit
+) {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
@@ -167,7 +165,12 @@ fun LandingScreen(
                                 modifier = Modifier
                                     .padding(start = 60.dp)
                             ) {
-                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    modifier = Modifier.clickable {
+                                        onProfileScreen()
+                                    }
+                                ) {
                                     Icon(
                                         imageVector = ImageVector.vectorResource(R.drawable.profile_icon),
                                         contentDescription = "",
@@ -400,7 +403,8 @@ private fun LandingScreenPrev() {
             onClickScheduleGame = { },
             onClickDiscoverCombats = { },
             onStatisticsClick = { },
-            onScheduleClick = {}
+            onScheduleClick = {},
+            onProfileScreen = {}
         )
     }
 }
