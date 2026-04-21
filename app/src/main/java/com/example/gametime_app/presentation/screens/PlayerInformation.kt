@@ -18,6 +18,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -25,7 +31,12 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.apollographql.apollo.api.defaultApolloUnsafeCast
 import com.example.gametime_app.R
+import com.example.gametime_app.presentation.viewModel.ProfileViewModel
+import com.example.gametime_networklibrary.data.dataSources.NetworkResult
+import com.example.gametime_networklibrary.data.repositoryImpl.AuthRepositoryImpl
 import com.example.gametime_uikit.ui.components.CardTwoPlayer
 import com.example.gametime_uikit.ui.components.PlayerInfo
 import com.example.gametime_uikit.ui.components.SpacerHeight
@@ -39,125 +50,137 @@ import com.example.gametime_uikit.ui.theme.CustomTheme
 @Composable
 fun PlayerInformation(
     modifier: Modifier = Modifier,
-    onClickBack: () -> Unit
+    onClickBack: () -> Unit,
+    viewModel: ProfileViewModel,
+    prefsRepository: AuthRepositoryImpl
 
 ) {
+    val data by viewModel.data.collectAsStateWithLifecycle()
+    val error by viewModel.error.collectAsState()
+
+    LaunchedEffect(Unit) {
+        val token = prefsRepository.getToken()
+        viewModel.getProfile(token ?: "")
+    }
+
     val scroll = rememberScrollState()
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(CustomTheme.colors.white)
-            .verticalScroll(scroll)
-    ) {
-        Column(
-            modifier = modifier
+    data?.let {
+        Box(
+            modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 30.dp)
                 .background(CustomTheme.colors.white)
+                .verticalScroll(scroll)
         ) {
-            SpacerHeight(14)
-            IconButton(onClick = { onClickBack() }) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(R.drawable.back_icon),
-                    contentDescription = "",
-                    tint = CustomTheme.colors.accent
-                )
-            }
-            SpacerHeight(36)
-            Text(
-                "Player Information",
-                style = CustomTheme.typography.Caption2Bold12,
-                fontSize = 22.sp,
-                modifier = Modifier.width(139.dp),
-                lineHeight = 30.sp,
-                color = CustomTheme.colors.accent,
-
-                )
-            SpacerHeight(16)
-            PlayerInfo(modifier.fillMaxWidth())
-            SpacerHeight(21)
-            Text(
-                "CATEGORY",
-                style = CustomTheme.typography.Caption2Bold12,
-                fontSize = 8.sp,
-                color = CustomTheme.colors.accent
-            )
-            SpacerHeight(11)
-            val listCategory = listOf("Image", "Circles")
-            Row() {
-                listCategory.forEach { listCategory ->
-                    Box(
-                        modifier = Modifier
-                            .size(59.dp, 20.dp)
-                            .background(CustomTheme.colors.white, shape = RoundedCornerShape(3.dp))
-                            .border(
-                                1.dp,
-                                CustomTheme.colors.accent,
-                                shape = RoundedCornerShape(3.dp)
-                            ),
-                        contentAlignment = Alignment.Center
-
-                    ) {
-                        Text(
-                            listCategory,
-                            style = CustomTheme.typography.Caption2Bold12,
-                            fontSize = 10.sp,
-                            color = CustomTheme.colors.accent
-                        )
-                    }
-                    SpacerWidth(10)
+            Column(
+                modifier = modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 30.dp)
+                    .background(CustomTheme.colors.white)
+            ) {
+                SpacerHeight(14)
+                IconButton(onClick = { onClickBack() }) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(R.drawable.back_icon),
+                        contentDescription = "",
+                        tint = CustomTheme.colors.accent
+                    )
                 }
-            }
-            SpacerHeight(16)
-            Text(
-                "Player Combats",
-                style = CustomTheme.typography.Caption2Bold12,
-                fontSize = 14.sp,
-                modifier = Modifier.width(66.dp),
-                lineHeight = 20.sp,
-                color = CustomTheme.colors.accent,
+                SpacerHeight(36)
+                Text(
+                    "Player Information",
+                    style = CustomTheme.typography.Caption2Bold12,
+                    fontSize = 22.sp,
+                    modifier = Modifier.width(139.dp),
+                    lineHeight = 30.sp,
+                    color = CustomTheme.colors.accent,
+
+                    )
+                SpacerHeight(16)
+                PlayerInfo(modifier.fillMaxWidth(), name = it.name)
+                SpacerHeight(21)
+                Text(
+                    "CATEGORY",
+                    style = CustomTheme.typography.Caption2Bold12,
+                    fontSize = 8.sp,
+                    color = CustomTheme.colors.accent
+                )
+                SpacerHeight(11)
+                val listCategory = listOf("Image", "Circles")
+                Row() {
+                    listCategory.forEach { listCategory ->
+                        Box(
+                            modifier = Modifier
+                                .size(59.dp, 20.dp)
+                                .background(CustomTheme.colors.white, shape = RoundedCornerShape(3.dp))
+                                .border(
+                                    1.dp,
+                                    CustomTheme.colors.accent,
+                                    shape = RoundedCornerShape(3.dp)
+                                ),
+                            contentAlignment = Alignment.Center
+
+                        ) {
+                            Text(
+                                listCategory,
+                                style = CustomTheme.typography.Caption2Bold12,
+                                fontSize = 10.sp,
+                                color = CustomTheme.colors.accent
+                            )
+                        }
+                        SpacerWidth(10)
+                    }
+                }
+                SpacerHeight(16)
+                Text(
+                    "Player Combats",
+                    style = CustomTheme.typography.Caption2Bold12,
+                    fontSize = 14.sp,
+                    modifier = Modifier.width(66.dp),
+                    lineHeight = 20.sp,
+                    color = CustomTheme.colors.accent,
+
+                    )
+                SpacerHeight(12)
+                CardTwoPlayer(
+                    gameName = "Halo 5",
+                    status = "Open",
+                    winnerPrice = 4000,
+                    nameFirstPlayer = "Scott Brown",
+                    nameSecondPlayer = "Stone Stella"
+
 
                 )
-            SpacerHeight(12)
-            CardTwoPlayer(
-                gameName = "Halo 5",
-                status = "Open",
-                winnerPrice = 4000,
-                nameFirstPlayer = "Scott Brown",
-                nameSecondPlayer = "Stone Stella"
+                SpacerHeight(10)
+                CardTwoPlayer(
+                    gameName = "Halo 5",
+                    status = "Open",
+                    winnerPrice = 4000,
+                    nameFirstPlayer = "Scott Brown",
+                    nameSecondPlayer = "Stone Stella"
 
 
-            )
-            SpacerHeight(10)
-            CardTwoPlayer(
-                gameName = "Halo 5",
-                status = "Open",
-                winnerPrice = 4000,
-                nameFirstPlayer = "Scott Brown",
-                nameSecondPlayer = "Stone Stella"
+                )
+                SpacerHeight(10)
+                CardTwoPlayer(
+                    gameName = "Halo 5",
+                    status = "Open",
+                    winnerPrice = 4000,
+                    nameFirstPlayer = "Scott Brown",
+                    nameSecondPlayer = "Stone Stella"
 
 
-            )
-            SpacerHeight(10)
-            CardTwoPlayer(
-                gameName = "Halo 5",
-                status = "Open",
-                winnerPrice = 4000,
-                nameFirstPlayer = "Scott Brown",
-                nameSecondPlayer = "Stone Stella"
+                )
+                SpacerHeight(10)
+                CardTwoPlayer(
+                    gameName = "Halo 5",
+                    status = "Open",
+                    winnerPrice = 4000,
+                    nameFirstPlayer = "Scott Brown",
+                    nameSecondPlayer = "Stone Stella"
 
 
-            )
-            SpacerHeight(10)
-            CardTwoPlayer(
-                gameName = "Halo 5",
-                status = "Open",
-                winnerPrice = 4000,
-                nameFirstPlayer = "Scott Brown",
-                nameSecondPlayer = "Stone Stella"
-
-
-            )
+                )
+            }
         }
     }
 }

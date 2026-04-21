@@ -4,16 +4,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.gametime_app.domain.UseCases
 import com.example.gametime_networklibrary.data.dataSources.NetworkResult
-import com.example.gametime_networklibrary.data.dto.game.CreateGameRequest
-import com.example.gametime_networklibrary.data.dto.game.GameRecord
+import com.example.gametime_networklibrary.data.dto.gameTime.game.CreateGameRequest
+import com.example.gametime_networklibrary.data.dto.gameTime.game.CreateGameResponse
+
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class CreateGameViewModel : ViewModel() {
-    private val _data = MutableStateFlow<NetworkResult<GameRecord>?>(null)
-    val data: StateFlow<NetworkResult<GameRecord>?> = _data.asStateFlow()
+    private val _data = MutableStateFlow<NetworkResult<CreateGameResponse>?>(null)
+    val data: StateFlow<NetworkResult<CreateGameResponse>?> = _data.asStateFlow()
 
     fun createGame(token: String, gameRequest: CreateGameRequest) {
         _data.value = null

@@ -46,7 +46,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.gametime_app.R
 import com.example.gametime_app.presentation.viewModel.RegistrationViewModel
 import com.example.gametime_networklibrary.data.dataSources.NetworkResult
-import com.example.gametime_networklibrary.data.dto.user.registration.RegistrationRequest
+import com.example.gametime_networklibrary.data.dto.gameTime.authentication.RegisterRequest
 import com.example.gametime_uikit.ui.components.Input
 import com.example.gametime_uikit.ui.components.PrimaryButton
 import com.example.gametime_uikit.ui.components.SpacerHeight
@@ -218,13 +218,14 @@ fun CreateAccount(
             SpacerHeight(44)
             PrimaryButton(onClick = {
                 viewModel.registration(
-                    RegistrationRequest(
+                    RegisterRequest(
+                        name = fullName,
                         email = email,
                         password = password,
-                        passwordConfirm = confirmPassword,
-                        fullName = fullName,
-                        userName = userName,
-                        phone = phone
+                        password_confirmation = confirmPassword,
+                        phone = phone,
+                        firstname = "",
+                        lastname = ""
                     )
                 )
             }, text = "Create Account", modifier = Modifier

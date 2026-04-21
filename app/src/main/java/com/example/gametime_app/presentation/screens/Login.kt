@@ -50,7 +50,7 @@ import com.example.gametime_app.presentation.components.PDFViewer
 import com.example.gametime_app.presentation.viewModel.AuthViewModel
 import com.example.gametime_networklibrary.data.dataSources.NetworkResult
 import com.example.gametime_networklibrary.data.dataSources.Preferences
-import com.example.gametime_networklibrary.data.dto.user.auth.AuthRequest
+import com.example.gametime_networklibrary.data.dto.gameTime.authentication.AuthRequest
 import com.example.gametime_networklibrary.data.repositoryImpl.AuthRepositoryImpl
 import com.example.gametime_uikit.ui.components.Input
 import com.example.gametime_uikit.ui.components.PrimaryButton

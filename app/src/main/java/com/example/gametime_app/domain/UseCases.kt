@@ -8,6 +8,7 @@ object UseCases {
     val registration = RegisterUseCase(NetworkService.userRepository)
     val getCategory = GetCategoryUseCase(NetworkService.gameRepository)
     val createGameUseCase = CreateGameUseCase(NetworkService.gameRepository)
+    val getProfile = GetProfile(NetworkService.profileRepository)
 
     val getStatisticUseCase = GetStatisticUseCase(apolloRepository = Apollo.apolloService)
 }

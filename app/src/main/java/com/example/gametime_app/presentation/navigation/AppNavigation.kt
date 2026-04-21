@@ -32,6 +32,7 @@ import com.example.gametime_app.presentation.viewModel.CircleGameViewModel
 import com.example.gametime_app.presentation.viewModel.CreateGameViewModel
 import com.example.gametime_app.presentation.viewModel.GetCategoryViewModel
 import com.example.gametime_app.presentation.viewModel.GetStatisticViewModel
+import com.example.gametime_app.presentation.viewModel.ProfileViewModel
 import com.example.gametime_app.presentation.viewModel.RegistrationViewModel
 import com.example.gametime_networklibrary.data.dataSources.Preferences
 import com.example.gametime_networklibrary.data.repositoryImpl.AuthRepositoryImpl
@@ -94,7 +95,7 @@ fun AppNavigation() {
                         onClickDiscoverCombats = { navController.navigate(route = DiscoverCombats) },
                         onStatisticsClick = { onStatisticsClick() },
                         onScheduleClick = { onScheduleClick() },
-                        onProfileScreen = {navController.navigate(route = ProfileScreen)}
+                        onProfileScreen = { navController.navigate(route = PlayerInformation) }
                     )
                 }
                 composable<ScheduleGame> {
@@ -125,9 +126,13 @@ fun AppNavigation() {
                     )
                 }
                 composable<PlayerInformation> {
+                    val profileViewModel: ProfileViewModel = viewModel()
                     PlayerInformation(
                         modifier = Modifier.padding(innerPadding),
-                        onClickBack = { navController.popBackStack() }
+                        onClickBack = { navController.popBackStack() },
+                        profileViewModel,
+                        prefsRepository
+
                     )
                 }
                 composable<Statistics> {

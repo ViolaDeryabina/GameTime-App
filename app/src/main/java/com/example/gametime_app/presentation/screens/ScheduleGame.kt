@@ -1,6 +1,7 @@
 package com.example.gametime_app.presentation.screens
 
 
+//import com.example.gametime_uikit.ui.components.SelectItem
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -33,8 +34,7 @@ import com.example.gametime_app.R
 import com.example.gametime_app.presentation.viewModel.CreateGameViewModel
 import com.example.gametime_app.presentation.viewModel.GetCategoryViewModel
 import com.example.gametime_networklibrary.data.dataSources.NetworkResult
-import com.example.gametime_networklibrary.data.dto.game.CategoryList
-import com.example.gametime_networklibrary.data.dto.game.CreateGameRequest
+import com.example.gametime_networklibrary.data.dto.gameTime.game.CreateGameRequest
 import com.example.gametime_networklibrary.data.repositoryImpl.AuthRepositoryImpl
 import com.example.gametime_uikit.ui.components.BottomSheet
 import com.example.gametime_uikit.ui.components.CustomCheckBox
@@ -42,7 +42,6 @@ import com.example.gametime_uikit.ui.components.Input
 import com.example.gametime_uikit.ui.components.PrimaryButton
 import com.example.gametime_uikit.ui.components.Select
 import com.example.gametime_uikit.ui.components.SelectItem
-//import com.example.gametime_uikit.ui.components.SelectItem
 import com.example.gametime_uikit.ui.components.SpacerHeight
 import com.example.gametime_uikit.ui.theme.CustomTheme
 
@@ -65,26 +64,12 @@ fun ScheduleGame(
     var description by remember { mutableStateOf("") }
     var showBottomSheet by remember { mutableStateOf(false) }
     var checked by remember { mutableStateOf(false) }
-    val data by viewModel.data.collectAsStateWithLifecycle()
+
 
     var listCategory by remember { mutableStateOf(emptyList<String>()) }
 
-    val token = prefs.getToken() ?: null
-    LaunchedEffect(Unit) {
-        if (token != null) {
-            viewModel.getCategory(token)
-        }
-    }
+    val token = prefs.getToken()
 
-    when (val result = data) {
-        is NetworkResult.Success -> {
-            listCategory = result.data.items.map { it.title }
-            Log.i("List Category", (listCategory.toString()))
-        }
-
-        is NetworkResult.Error -> {}
-        is NetworkResult.Exception -> {}
-    }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -179,15 +164,14 @@ fun ScheduleGame(
                     onClick = {
                         viewModelGame.createGame(
                             token ?: "", CreateGameRequest(
-                                gameName = gameName,
-//                                category = selected,
-                                category = "hf9yve2sqvkey21",
-                                winningPrice = winnerPrice.toInt(),
-                                from = "",
-                                to = "",
-                                description = description,
-                                notification = checked,
-                                host = ""
+                                type = "",
+                                "",
+                                "",
+                                "",
+                                1,
+                                4,
+                                4
+
                             )
                         )
                         Log.i("ScheduleGame", "Создание игры")

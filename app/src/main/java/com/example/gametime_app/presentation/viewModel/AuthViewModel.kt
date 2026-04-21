@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.gametime_app.domain.UseCases
 import com.example.gametime_networklibrary.data.dataSources.NetworkResult
-import com.example.gametime_networklibrary.data.dto.user.auth.AuthRequest
-import com.example.gametime_networklibrary.data.dto.user.auth.AuthResponse
+import com.example.gametime_networklibrary.data.dto.gameTime.authentication.AuthRequest
+import com.example.gametime_networklibrary.data.dto.gameTime.authentication.RegisterResponse
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,8 +13,8 @@ import kotlinx.coroutines.launch
 
 class AuthViewModel : ViewModel() {
 
-    private val _data = MutableStateFlow<NetworkResult<AuthResponse>?>(null)
-    val data: StateFlow<NetworkResult<AuthResponse>?> = _data.asStateFlow()
+    private val _data = MutableStateFlow<NetworkResult<RegisterResponse>?>(null)
+    val data: StateFlow<NetworkResult<RegisterResponse>?> = _data.asStateFlow()
 
     fun authorization(authRequest: AuthRequest) {
         _data.value = null
