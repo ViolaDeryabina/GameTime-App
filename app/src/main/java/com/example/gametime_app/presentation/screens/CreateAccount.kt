@@ -47,6 +47,7 @@ import com.example.gametime_app.R
 import com.example.gametime_app.presentation.viewModel.RegistrationViewModel
 import com.example.gametime_networklibrary.data.dataSources.NetworkResult
 import com.example.gametime_networklibrary.data.dto.gameTime.authentication.RegisterRequest
+import com.example.gametime_networklibrary.data.repositoryImpl.AuthRepositoryImpl
 import com.example.gametime_uikit.ui.components.Input
 import com.example.gametime_uikit.ui.components.PrimaryButton
 import com.example.gametime_uikit.ui.components.SpacerHeight
@@ -62,7 +63,8 @@ fun CreateAccount(
     modifier: Modifier = Modifier,
     viewModel: RegistrationViewModel,
     onClickMain: () -> Unit,
-    onClickLogin: () -> Unit
+    onClickLogin: () -> Unit,
+    prefs: AuthRepositoryImpl
 
 ) {
 
@@ -86,6 +88,7 @@ fun CreateAccount(
 
         when (data) {
             is NetworkResult.Success -> {
+                prefs.savePhone(phone)
                 onClickMain()
             }
         }

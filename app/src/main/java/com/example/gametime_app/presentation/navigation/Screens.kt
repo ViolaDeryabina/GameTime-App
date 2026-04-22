@@ -30,3 +30,5 @@ object CircleGame
 object ImageGameScreen
 @Serializable
 object ProfileScreen
+@Serializable
+object MyProfile

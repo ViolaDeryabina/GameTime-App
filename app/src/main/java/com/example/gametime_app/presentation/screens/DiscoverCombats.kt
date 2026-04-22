@@ -25,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.gametime_app.R
+import com.example.gametime_uikit.domain.TabBarItem
 import com.example.gametime_uikit.ui.components.CardTwoPlayer
 import com.example.gametime_uikit.ui.components.PopularPlayer
 import com.example.gametime_uikit.ui.components.Search
@@ -46,11 +47,36 @@ fun DiscoverCombats(
     Scaffold(
         bottomBar = {
             TapBar(
-                onScheduleClick = { },
-                onStatisticsClick = {},
-                onDiscoverClick = {},
-                onChatClick = { },
-                onProfileClick = {}
+                leadingTabBarItems = listOf(
+                    TabBarItem(
+                        index = 0,
+                        title = "Statistics",
+                        iconId = com.example.gametime_uikit.R.drawable.statistics_icon,
+                        onClick = {}
+                    ),
+                    TabBarItem(
+                        index = 1,
+                        title = "Discover",
+                        iconId = com.example.gametime_uikit.R.drawable.location_pin,
+                        onClick = {}
+                    )
+                ),
+                trailingTabBarItems = listOf(
+                    TabBarItem(
+                        index = 2,
+                        title = "Chat",
+                        iconId = com.example.gametime_uikit.R.drawable.chat,
+                        onClick = {}
+                    ),
+                    TabBarItem(
+                        index = 3,
+                        title = "Profile",
+                        iconId = com.example.gametime_uikit.R.drawable.profile,
+                        onClick = {}
+                    )
+                ),
+                onScheduleClick = {},
+                selectedIndex=0
             )
         },
     ) { innerPadding ->

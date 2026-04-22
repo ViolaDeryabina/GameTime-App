@@ -11,4 +11,9 @@ object UseCases {
     val getProfile = GetProfile(NetworkService.profileRepository)
 
     val getStatisticUseCase = GetStatisticUseCase(apolloRepository = Apollo.apolloService)
+    val logout = LogoutUseCase(NetworkService.userRepository)
+
+    val updateProfile = UpdateProfileUseCase(NetworkService.profileRepository)
+
+    val getStatistic = GetStatisticsGameUseCase(NetworkService.statRepository)
 }

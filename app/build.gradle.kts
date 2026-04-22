@@ -50,7 +50,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     api(libs.logging.interceptor)
     implementation("io.coil-kt:coil-compose:2.7.0")
-    implementation(files("libs/app-release.aar"))
+    implementation(files("libs/ui-kit.aar"))
     implementation(files("libs/image-game-debug.aar"))
     implementation(files("libs/app-debug-network.aar"))
     implementation(libs.androidx.navigation.compose)

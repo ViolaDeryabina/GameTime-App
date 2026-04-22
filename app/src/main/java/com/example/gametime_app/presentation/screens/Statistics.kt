@@ -1,5 +1,6 @@
 package com.example.gametime_app.presentation.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -9,6 +10,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -16,8 +18,10 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.gametime_app.R
 import com.example.gametime_app.presentation.viewModel.GetStatisticViewModel
+import com.example.gametime_app.presentation.viewModel.StatViewModel
 import com.example.gametime_networklibrary.data.repositoryImpl.AuthRepositoryImpl
 import com.example.gametime_uikit.ui.components.BarChart
 import com.example.gametime_uikit.ui.components.DonutChart
@@ -29,58 +33,117 @@ fun Statistics(
     modifier: Modifier = Modifier,
     viewModel: GetStatisticViewModel,
     onClickBack: () -> Unit,
-    prefs: AuthRepositoryImpl
+    prefs: AuthRepositoryImpl,
+    viewModelStat: StatViewModel
 ) {
-    val token = prefs.getToken() ?: null
+    val token = prefs.getToken()
+    val data by viewModelStat.data.collectAsStateWithLifecycle()
+    val error by viewModelStat.error.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
         if (token != null) {
-            viewModel.getStatistic(token)
+            viewModelStat.getStat(token)
+        }
+    }
+    data?.let { it->
+        val total = it.data.total/100f
+
+        val pink = it.data.image_puzzle/100f
+        val blue = it.data.ring_puzzle/100f
+
+        Log.d("Statistics","${total} - ${pink}+${blue}")
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(horizontal = 30.dp)
+        ) {
+            SpacerHeight(14)
+            IconButton(onClick = {onClickBack()}) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(R.drawable.back_icon),
+                    contentDescription = "",
+                    tint = CustomTheme.colors.accent
+                )
+            }
+            SpacerHeight(36)
+            Text(
+                "Statistics",
+                style = CustomTheme.typography.Caption2Bold12,
+                fontSize = 22.sp,
+                color = CustomTheme.colors.accent
+            )
+            SpacerHeight(25)
+            Text("Played Games",
+                style = CustomTheme.typography.Caption2Bold12,
+                fontSize = 22.sp,
+                color = CustomTheme.colors.accent)
+            SpacerHeight(35)
+            DonutChart(
+                modifier = Modifier
+                    .size(180.dp)
+                    .align(Alignment.CenterHorizontally),
+                totalPercentage = total,
+                bluePercentage =  blue,
+                pinkPercentage = pink
+            )
+            SpacerHeight(35)
+            Text("Scheduled Games",
+                style = CustomTheme.typography.Caption2Bold12,
+                fontSize = 22.sp,
+                color = CustomTheme.colors.accent)
+            SpacerHeight(60)
+            BarChart(
+                modifier = Modifier
+                    .size(width = 200.dp, height = 140.dp)
+                    .align(Alignment.CenterHorizontally)
+            )
+        }
+    }
+    error?.let {
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(horizontal = 30.dp)
+        ) {
+            SpacerHeight(14)
+            IconButton(onClick = {onClickBack()}) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(R.drawable.back_icon),
+                    contentDescription = "",
+                    tint = CustomTheme.colors.accent
+                )
+            }
+            SpacerHeight(36)
+            Text(
+                "Statistics",
+                style = CustomTheme.typography.Caption2Bold12,
+                fontSize = 22.sp,
+                color = CustomTheme.colors.accent
+            )
+            SpacerHeight(25)
+            Text("Played Games",
+                style = CustomTheme.typography.Caption2Bold12,
+                fontSize = 22.sp,
+                color = CustomTheme.colors.accent)
+            SpacerHeight(35)
+            DonutChart(
+                modifier = Modifier
+                    .size(180.dp)
+                    .align(Alignment.CenterHorizontally)
+            )
+            SpacerHeight(35)
+            Text("Scheduled Games",
+                style = CustomTheme.typography.Caption2Bold12,
+                fontSize = 22.sp,
+                color = CustomTheme.colors.accent)
+            SpacerHeight(60)
+            BarChart(
+                modifier = Modifier
+                    .size(width = 200.dp, height = 140.dp)
+                    .align(Alignment.CenterHorizontally)
+            )
         }
     }
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(horizontal = 30.dp)
-    ) {
-        SpacerHeight(14)
-        IconButton(onClick = {onClickBack()}) {
-            Icon(
-                imageVector = ImageVector.vectorResource(R.drawable.back_icon),
-                contentDescription = "",
-                tint = CustomTheme.colors.accent
-            )
-        }
-        SpacerHeight(36)
-        Text(
-            "Statistics",
-            style = CustomTheme.typography.Caption2Bold12,
-            fontSize = 22.sp,
-            color = CustomTheme.colors.accent
-        )
-        SpacerHeight(25)
-        Text("Played Games",
-            style = CustomTheme.typography.Caption2Bold12,
-            fontSize = 22.sp,
-            color = CustomTheme.colors.accent)
-        SpacerHeight(35)
-        DonutChart(
-            modifier = Modifier
-                .size(180.dp)
-                .align(Alignment.CenterHorizontally)
-        )
-        SpacerHeight(35)
-        Text("Scheduled Games",
-            style = CustomTheme.typography.Caption2Bold12,
-            fontSize = 22.sp,
-            color = CustomTheme.colors.accent)
-        SpacerHeight(60)
-        BarChart(
-            modifier = Modifier
-                .size(width = 200.dp, height = 140.dp)
-                .align(Alignment.CenterHorizontally)
-        )
-    }
 }
 
 @Preview

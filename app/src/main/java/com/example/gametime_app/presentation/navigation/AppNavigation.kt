@@ -21,6 +21,7 @@ import com.example.gametime_app.presentation.screens.DiscoverCombats
 import com.example.gametime_app.presentation.screens.ImageGameScreen
 import com.example.gametime_app.presentation.screens.LandingScreen
 import com.example.gametime_app.presentation.screens.Login
+import com.example.gametime_app.presentation.screens.MyProfile
 import com.example.gametime_app.presentation.screens.Onboard
 import com.example.gametime_app.presentation.screens.PlayerInformation
 import com.example.gametime_app.presentation.screens.ProfileScreen
@@ -32,8 +33,10 @@ import com.example.gametime_app.presentation.viewModel.CircleGameViewModel
 import com.example.gametime_app.presentation.viewModel.CreateGameViewModel
 import com.example.gametime_app.presentation.viewModel.GetCategoryViewModel
 import com.example.gametime_app.presentation.viewModel.GetStatisticViewModel
+import com.example.gametime_app.presentation.viewModel.LogoutViewModel
 import com.example.gametime_app.presentation.viewModel.ProfileViewModel
 import com.example.gametime_app.presentation.viewModel.RegistrationViewModel
+import com.example.gametime_app.presentation.viewModel.StatViewModel
 import com.example.gametime_networklibrary.data.dataSources.Preferences
 import com.example.gametime_networklibrary.data.repositoryImpl.AuthRepositoryImpl
 import com.example.gametime_uikit.ui.theme.CustomTheme
@@ -76,7 +79,8 @@ fun AppNavigation() {
                         modifier = Modifier.padding(innerPadding),
                         viewModelRegister,
                         onClickMain = { navController.navigate(LandingScreen) },
-                        onClickLogin = { navController.navigate(Login) }
+                        onClickLogin = { navController.navigate(Login) },
+                        prefs = prefsRepository
                     )
                 }
                 composable<Login> {
@@ -90,12 +94,18 @@ fun AppNavigation() {
                     )
                 }
                 composable<LandingScreen> {
+                    val viewModel: LogoutViewModel = viewModel()
+                    val viewModelProfile: ProfileViewModel = viewModel()
                     LandingScreen(
                         onClickScheduleGame = { navController.navigate(route = ScheduleGame) },
                         onClickDiscoverCombats = { navController.navigate(route = DiscoverCombats) },
                         onStatisticsClick = { onStatisticsClick() },
                         onScheduleClick = { onScheduleClick() },
-                        onProfileScreen = { navController.navigate(route = PlayerInformation) }
+                        onProfileScreen = { navController.navigate(route = MyProfile) },
+                        onExit = {navController.navigate(route= Login)},
+                        viewModel=viewModel,
+                        prefs = prefsRepository,
+                        viewModelProfile = viewModelProfile
                     )
                 }
                 composable<ScheduleGame> {
@@ -137,11 +147,13 @@ fun AppNavigation() {
                 }
                 composable<Statistics> {
                     val statisticViewModel: GetStatisticViewModel = viewModel()
+                    val statViewModel: StatViewModel = viewModel()
 
                     Statistics(
                         viewModel = statisticViewModel,
                         onClickBack = { navController.popBackStack() },
-                        prefs = prefsRepository
+                        prefs = prefsRepository,
+                        viewModelStat = statViewModel
                     )
                 }
                 composable<CircleGame> {
@@ -156,6 +168,13 @@ fun AppNavigation() {
                 }
                 composable<ProfileScreen> {
                     ProfileScreen()
+                }
+                composable<MyProfile> {
+                    val viewModel: ProfileViewModel = viewModel()
+                    MyProfile(
+                        viewModel = viewModel,
+                        prefs =  prefsRepository
+                    )
                 }
             }
         }
