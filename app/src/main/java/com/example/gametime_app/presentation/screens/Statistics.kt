@@ -45,12 +45,14 @@ fun Statistics(
         }
     }
     data?.let { it->
-        val total = it.data.total/100f
+        val total = it.data.total
+        val pink = it.data.image_puzzle
+        val blue = it.data.ring_puzzle
 
-        val pink = it.data.image_puzzle/100f
-        val blue = it.data.ring_puzzle/100f
+        val pinkPer = (pink.toFloat()/total)*100f
+        val bluePer = (blue.toFloat()/total)*100f
 
-        Log.d("Statistics","${total} - ${pink}+${blue}")
+        Log.d("Statistics","${total} - 100%:  ${pinkPer}+${bluePer}")
         Column(
             modifier = modifier
                 .fillMaxSize()
@@ -81,9 +83,9 @@ fun Statistics(
                 modifier = Modifier
                     .size(180.dp)
                     .align(Alignment.CenterHorizontally),
-                totalPercentage = total,
-                bluePercentage =  blue,
-                pinkPercentage = pink
+                totalPercentage = 100f,
+                bluePercentage =  bluePer,
+                pinkPercentage = pinkPer
             )
             SpacerHeight(35)
             Text("Scheduled Games",
