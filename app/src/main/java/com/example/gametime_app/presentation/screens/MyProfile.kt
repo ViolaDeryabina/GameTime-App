@@ -145,7 +145,7 @@ fun MyProfile(
                     }
                 }
             val phoneText = prefs.getPhone() ?: ""
-            val avatar = d.avatar
+            val avatar = d.avatarUrl
 
             var fullName by rememberSaveable { mutableStateOf(d.name) }
             var phone by remember { mutableStateOf(phoneText) }

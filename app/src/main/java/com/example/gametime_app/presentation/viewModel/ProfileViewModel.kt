@@ -1,7 +1,5 @@
 package com.example.gametime_app.presentation.viewModel
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -9,19 +7,14 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.gametime_app.domain.GetProfile
-import com.example.gametime_app.domain.UpdateProfileUseCase
 import com.example.gametime_app.domain.dto.DomainError
 import com.example.gametime_networklibrary.data.dataSources.NetworkResult
-import com.example.gametime_networklibrary.data.dto.gameTime.authentication.User
-import com.example.gametime_networklibrary.data.dto.gameTime.profile.UpdateProfile
+import com.example.gametime_networklibrary.domain.entities.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
 
 @HiltViewModel

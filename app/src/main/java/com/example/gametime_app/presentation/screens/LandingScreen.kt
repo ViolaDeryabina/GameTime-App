@@ -153,9 +153,9 @@ fun LandingScreen(
                                     verticalAlignment = Alignment.CenterVertically,
                                 ) {
                                     Box(modifier = Modifier.size(51.33.dp)) {
-                                        if (it.avatar != null) {
+                                        if (it.avatarUrl != null) {
                                             AsyncImage(
-                                                model = it.avatar,
+                                                model = it.avatarUrl,
                                                 contentDescription = "",
                                                 contentScale = ContentScale.Crop,
                                                 modifier = Modifier
@@ -403,9 +403,9 @@ fun LandingScreen(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Box(modifier = Modifier.size(24.dp)) {
-                                    if (it.avatar != null) {
+                                    if (it.avatarUrl != null) {
                                         AsyncImage(
-                                            model = it.avatar,
+                                            model = it.avatarUrl,
                                             contentDescription = "",
                                             contentScale = ContentScale.Crop,
                                             modifier = Modifier
