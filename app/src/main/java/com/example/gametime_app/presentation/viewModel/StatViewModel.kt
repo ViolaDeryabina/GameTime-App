@@ -3,16 +3,19 @@ package com.example.gametime_app.presentation.viewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.gametime_app.domain.DomainError
-import com.example.gametime_app.domain.UseCases
+import com.example.gametime_app.domain.GetStatisticsGameUseCase
+import com.example.gametime_app.domain.dto.DomainError
 import com.example.gametime_networklibrary.data.dataSources.NetworkResult
 import com.example.gametime_networklibrary.data.dto.gameTime.game.GameData
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class StatViewModel: ViewModel() {
+@HiltViewModel
+class StatViewModel @Inject constructor(private val getStatisticsGameUseCase: GetStatisticsGameUseCase): ViewModel() {
     private val _data = MutableStateFlow<GameData?>(null)
     val data: StateFlow<GameData?> = _data.asStateFlow()
 
@@ -21,7 +24,7 @@ class StatViewModel: ViewModel() {
 
     fun getStat(token: String){
         viewModelScope.launch {
-            when(val result = UseCases.getStatistic(token)){
+            when(val result = getStatisticsGameUseCase.invoke(token)){
                 is NetworkResult.Success->{
                     Log.i("StatViewModel","${result.data.data.total}")
                     Log.i("StatViewModel","${result.data.data.image_puzzle}")

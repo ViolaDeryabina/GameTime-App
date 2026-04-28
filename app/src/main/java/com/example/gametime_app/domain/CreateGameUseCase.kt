@@ -4,8 +4,9 @@ import com.example.gametime_networklibrary.data.dataSources.NetworkResult
 import com.example.gametime_networklibrary.data.dto.gameTime.game.CreateGameRequest
 import com.example.gametime_networklibrary.data.dto.gameTime.game.CreateGameResponse
 import com.example.gametime_networklibrary.domain.repository.GameRepository
+import javax.inject.Inject
 
-class CreateGameUseCase(private val gameRepository: GameRepository) {
+class CreateGameUseCase @Inject constructor(private val gameRepository: GameRepository) {
     suspend operator fun invoke(
         token: String,
         createGameRequest: CreateGameRequest

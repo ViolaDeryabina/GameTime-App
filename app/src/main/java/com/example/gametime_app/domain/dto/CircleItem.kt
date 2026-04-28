@@ -1,4 +1,4 @@
-package com.example.gametime_app.domain
+package com.example.gametime_app.domain.dto
 
 import androidx.compose.ui.geometry.Offset
 

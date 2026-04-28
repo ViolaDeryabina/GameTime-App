@@ -49,6 +49,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.example.gametime_app.R
 import com.example.gametime_app.presentation.viewModel.ProfileViewModel
+import com.example.gametime_app.presentation.viewModel.UpdateViewModel
 import com.example.gametime_networklibrary.data.repositoryImpl.AuthRepositoryImpl
 import com.example.gametime_uikit.domain.TabBarItem
 import com.example.gametime_uikit.ui.components.Input
@@ -63,6 +64,7 @@ import kotlin.let
 fun MyProfile(
     modifier: Modifier = Modifier,
     viewModel: ProfileViewModel,
+    viewModelUpdate: UpdateViewModel,
     prefs: AuthRepositoryImpl
 ) {
     val scroll = rememberScrollState()
@@ -334,7 +336,7 @@ fun MyProfile(
                     SpacerHeight(54)
                     PrimaryButton(
                         onClick = {
-                            viewModel.updateProfile(
+                            viewModelUpdate.updateProfile(
                                 token,
                                 fullName,
                                 viewModel.imageURI,

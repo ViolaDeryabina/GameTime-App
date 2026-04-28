@@ -8,7 +8,7 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.center
 import androidx.compose.ui.unit.toOffset
 import androidx.lifecycle.ViewModel
-import com.example.gametime_app.domain.CircleItem
+import com.example.gametime_app.domain.dto.CircleItem
 import kotlin.random.Random
 
 class CircleGameViewModel : ViewModel() {

@@ -18,8 +18,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -131,7 +129,7 @@ fun LandingScreen(
                                 ) {
                                     IconButton(onClick = {}) {
                                         Icon(
-                                            imageVector = Icons.Default.Close,
+                                            imageVector = ImageVector.vectorResource(R.drawable.back_icon),
                                             contentDescription = "",
                                             tint = CustomTheme.colors.accent,
                                             modifier = Modifier

@@ -32,7 +32,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.gametime_app.R
 import com.example.gametime_app.presentation.viewModel.CreateGameViewModel
-import com.example.gametime_app.presentation.viewModel.GetCategoryViewModel
 import com.example.gametime_networklibrary.data.dataSources.NetworkResult
 import com.example.gametime_networklibrary.data.dto.gameTime.game.CreateGameRequest
 import com.example.gametime_networklibrary.data.repositoryImpl.AuthRepositoryImpl
@@ -52,7 +51,6 @@ import com.example.gametime_uikit.ui.theme.CustomTheme
 @Composable
 fun ScheduleGame(
     modifier: Modifier = Modifier,
-    viewModel: GetCategoryViewModel,
     viewModelGame: CreateGameViewModel,
     onClickMain: () -> Unit,
     prefs: AuthRepositoryImpl

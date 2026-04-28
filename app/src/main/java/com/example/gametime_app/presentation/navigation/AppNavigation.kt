@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -31,12 +31,11 @@ import com.example.gametime_app.presentation.screens.Statistics
 import com.example.gametime_app.presentation.viewModel.AuthViewModel
 import com.example.gametime_app.presentation.viewModel.CircleGameViewModel
 import com.example.gametime_app.presentation.viewModel.CreateGameViewModel
-import com.example.gametime_app.presentation.viewModel.GetCategoryViewModel
-import com.example.gametime_app.presentation.viewModel.GetStatisticViewModel
 import com.example.gametime_app.presentation.viewModel.LogoutViewModel
 import com.example.gametime_app.presentation.viewModel.ProfileViewModel
 import com.example.gametime_app.presentation.viewModel.RegistrationViewModel
 import com.example.gametime_app.presentation.viewModel.StatViewModel
+import com.example.gametime_app.presentation.viewModel.UpdateViewModel
 import com.example.gametime_networklibrary.data.dataSources.Preferences
 import com.example.gametime_networklibrary.data.repositoryImpl.AuthRepositoryImpl
 import com.example.gametime_uikit.ui.theme.CustomTheme
@@ -74,7 +73,7 @@ fun AppNavigation() {
                     )
                 }
                 composable<CreateAccount> {
-                    val viewModelRegister: RegistrationViewModel = viewModel()
+                    val viewModelRegister: RegistrationViewModel = hiltViewModel()
                     CreateAccount(
                         modifier = Modifier.padding(innerPadding),
                         viewModelRegister,
@@ -84,7 +83,7 @@ fun AppNavigation() {
                     )
                 }
                 composable<Login> {
-                    val viewModelAuth: AuthViewModel = viewModel()
+                    val viewModelAuth: AuthViewModel = hiltViewModel()
                     Login(
                         modifier = Modifier.padding(innerPadding),
                         viewModelAuth,
@@ -94,27 +93,25 @@ fun AppNavigation() {
                     )
                 }
                 composable<LandingScreen> {
-                    val viewModel: LogoutViewModel = viewModel()
-                    val viewModelProfile: ProfileViewModel = viewModel()
+                    val viewModel: LogoutViewModel = hiltViewModel()
+                    val viewModelProfile: ProfileViewModel = hiltViewModel()
                     LandingScreen(
                         onClickScheduleGame = { navController.navigate(route = ScheduleGame) },
                         onClickDiscoverCombats = { navController.navigate(route = DiscoverCombats) },
                         onStatisticsClick = { onStatisticsClick() },
                         onScheduleClick = { onScheduleClick() },
                         onProfileScreen = { navController.navigate(route = MyProfile) },
-                        onExit = {navController.navigate(route= Login)},
-                        viewModel=viewModel,
+                        onExit = { navController.navigate(route = Login) },
+                        viewModel = viewModel,
                         prefs = prefsRepository,
                         viewModelProfile = viewModelProfile
                     )
                 }
                 composable<ScheduleGame> {
-                    val getCategoryViewModel: GetCategoryViewModel = viewModel()
-                    val createGameViewModel: CreateGameViewModel = viewModel()
+                    val createGameViewModel: CreateGameViewModel = hiltViewModel()
                     ScheduleGame(
                         modifier = Modifier.padding(innerPadding),
                         onClickMain = { navController.navigate(route = LandingScreen) },
-                        viewModel = getCategoryViewModel,
                         viewModelGame = createGameViewModel,
                         prefs = prefsRepository
                     )
@@ -136,7 +133,7 @@ fun AppNavigation() {
                     )
                 }
                 composable<PlayerInformation> {
-                    val profileViewModel: ProfileViewModel = viewModel()
+                    val profileViewModel: ProfileViewModel = hiltViewModel()
                     PlayerInformation(
                         modifier = Modifier.padding(innerPadding),
                         onClickBack = { navController.popBackStack() },
@@ -146,18 +143,16 @@ fun AppNavigation() {
                     )
                 }
                 composable<Statistics> {
-                    val statisticViewModel: GetStatisticViewModel = viewModel()
-                    val statViewModel: StatViewModel = viewModel()
+                    val statViewModel: StatViewModel = hiltViewModel()
 
                     Statistics(
-                        viewModel = statisticViewModel,
                         onClickBack = { navController.popBackStack() },
                         prefs = prefsRepository,
                         viewModelStat = statViewModel
                     )
                 }
                 composable<CircleGame> {
-                    val viewModel: CircleGameViewModel = viewModel()
+                    val viewModel: CircleGameViewModel = hiltViewModel()
                     CircleGame(viewModel = viewModel)
                 }
                 composable<ImageGameScreen> {
@@ -170,10 +165,12 @@ fun AppNavigation() {
                     ProfileScreen()
                 }
                 composable<MyProfile> {
-                    val viewModel: ProfileViewModel = viewModel()
+                    val viewModel: ProfileViewModel = hiltViewModel()
+                    val viewModelUpdate: UpdateViewModel = hiltViewModel()
                     MyProfile(
                         viewModel = viewModel,
-                        prefs =  prefsRepository
+                        viewModelUpdate = viewModelUpdate,
+                        prefs = prefsRepository
                     )
                 }
             }

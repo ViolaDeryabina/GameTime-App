@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.gametime_app.R
-import com.example.gametime_app.presentation.viewModel.GetStatisticViewModel
 import com.example.gametime_app.presentation.viewModel.StatViewModel
 import com.example.gametime_networklibrary.data.repositoryImpl.AuthRepositoryImpl
 import com.example.gametime_uikit.ui.components.BarChart
@@ -31,7 +30,6 @@ import com.example.gametime_uikit.ui.theme.CustomTheme
 @Composable
 fun Statistics(
     modifier: Modifier = Modifier,
-    viewModel: GetStatisticViewModel,
     onClickBack: () -> Unit,
     prefs: AuthRepositoryImpl,
     viewModelStat: StatViewModel
