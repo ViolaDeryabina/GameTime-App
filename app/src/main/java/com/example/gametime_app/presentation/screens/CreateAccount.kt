@@ -89,6 +89,8 @@ fun CreateAccount(
         when (data) {
             is NetworkResult.Success -> {
                 prefs.savePhone(phone)
+                val token = (data as NetworkResult.Success).data
+                prefs.saveToken(token.token)
                 onClickMain()
             }
         }
